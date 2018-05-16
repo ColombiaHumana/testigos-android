@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="votacion.presidencia.petro.testigoscolombiahumana.votacion.presidencia.petro.loginActivity">
+    <ImageView
+        android:id="@+id/logo_petro"
+        android:src="@drawable/logo"
+        android:background="@color/color_principal"
+        android:padding="30dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:padding="15dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_below="@+id/logo_petro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:text="Cedula de identidad"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:background="@drawable/linea_alrededor_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:paddingTop="10dp"
+            android:textStyle="bold"
+            android:text="Cedula de identidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:background="@drawable/linea_alrededor_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/sesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@color/color_principal"
+            android:text="Iniciar sesión" />
+        
+        <TextView
+            android:paddingTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="¿Olvidó su contraseña?"
+            android:textColor="@color/color_principal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

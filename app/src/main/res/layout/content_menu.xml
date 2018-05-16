@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="votacion.presidencia.petro.testigoscolombiahumana.votacion.presidencia.petro.menuActivity"
+    android:background="#fefefe"
+    tools:showIn="@layout/activity_menu">
+
+    <ImageView
+        android:id="@+id/imagenban"
+        android:adjustViewBounds="true"
+        android:src="@drawable/banner_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@+id/imagenban"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/guias"
+            android:text="GUIAS"
+            android:src="@drawable/guias"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            />
+
+        <ImageView
+            android:src="@drawable/anomalias"
+            android:id="@+id/anomalias"
+            android:text="ANOMALIAS"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/registro"
+                android:src="@drawable/registro"
+                android:text="REGISTRO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

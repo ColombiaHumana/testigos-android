@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Total votos en la mesa:"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_totalvot"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Gustavo petro"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_petro"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:text="Promotores voto en Blanco"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_pro_blanco"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Ivan Duque:"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_ivan_duque"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Humberto de la Calle"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_humberto_calles"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Jorge Antonio Trujillo:"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_jtrujillo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Sergio Fajardo:"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_s_fajardo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Viviane Morales:"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_v_morales"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Piedad Cordoba:"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_pcordoba"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="German Varas Lleras:"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_vargas_lleras"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/total_votos_validos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/rojo"
+                        android:text="Total votos validos: "
+                        android:textSize="20dp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimary"
+                        />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Votos Blanco:"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_votos_blanco"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Votos nulos:"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_votos_nulos"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+
+                            android:text="Votos no marcados:"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="30"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="70"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:id="@+id/t_votos_no_marcados"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:hint="# Votos"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:background="@drawable/edittext_borde"
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/totalv"
+                        android:text="Total votos: "
+                        android:gravity="center"
+                        android:textSize="20dp"
+                        android:textColor="@color/rojo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/linear_image"
+                        android:paddingTop="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#F5F5F5">
+
+                        <ImageView
+                            android:id="@+id/image"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:src="@drawable/image_plus"/>
+
+                        <TextView
+                            android:id="@+id/text_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textSize="20sp"
+                            android:text="Subir imagen"/>
+
+
+
+                    </LinearLayout>
+
+                    <Button
+                        android:visibility="visible"
+                        android:layout_margin="20dp"
+                        android:id="@+id/t_btndatos"
+                        android:background="@color/color_principal"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Subir datos"/>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
