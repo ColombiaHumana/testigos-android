@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Testigos Colombia Humana</string>
     <string name="title_activity_menu">menuActivity</string>
+
+    <string name="SERVER">https://testigos-app.petro.com.co</string>
+
+    <string name="error_invalid_email">Cedula inválida</string>
+    <string name="error_invalid_password">Contraseña muy corta</string>
+    <string name="error_field_required">Este campo es obligatorio</string>
+    <string name="action_settings">Cerrar sesión</string>
 </resources>

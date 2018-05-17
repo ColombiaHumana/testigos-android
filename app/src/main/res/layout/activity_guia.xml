@@ -25,6 +25,8 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:padding="10dp"
+            android:id="@+id/recomendaciones"
+            android:onClick="dialogo"
             android:layout_height="0dp">
 
             <ImageView
@@ -35,7 +37,7 @@
 
             <TextView
                 android:text="10 Recomendaciones para ser testigo electoral"
-
+                android:textColor="@color/color_principal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -49,6 +51,8 @@
             android:layout_weight=".33"
             android:gravity="center"
             android:padding="10dp"
+            android:onClick="dialogo"
+            android:id="@+id/reportarresultados"
             android:layout_height="0dp">
 
             <ImageView
@@ -60,6 +64,7 @@
             <TextView
                 android:text="Cómo reportar los resultados de escrutinio"
                 android:layout_width="match_parent"
+                android:textColor="@color/color_principal"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
@@ -70,6 +75,8 @@
             android:layout_height="0dp"
             android:gravity="center"
             android:padding="10dp"
+            android:onClick="dialogo"
+            android:id="@+id/reportaranomalia"
             android:layout_weight=".33">
 
             <ImageView
@@ -81,6 +88,7 @@
             <TextView
                 android:text="Cómo reportar anomalías"
                 android:layout_width="match_parent"
+                android:textColor="@color/color_principal"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>

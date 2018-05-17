@@ -1,0 +1,121 @@
+{
+  "project_info": {
+    "project_number": "292256960269",
+    "firebase_url": "https://petro-presidente.firebaseio.com",
+    "project_id": "petro-presidente",
+    "storage_bucket": "petro-presidente.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292256960269:android:1b613c5298f29ade",
+        "android_client_info": {
+          "package_name": "petro.mike.votacion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292256960269-l1mvtblkdvp5vi3o8ficfuu9j2r1etg5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "petro.mike.votacion",
+            "certificate_hash": "0df13a4d64a8267ac5bc7fc549f064170c3825d0"
+          }
+        },
+        {
+          "client_id": "292256960269-srk4670n7vlbe6e98ebsiqp4lf04p8tp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtyvYe_q1Wu8pC4sTi4bGP3sGn7YGe7TE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292256960269-srk4670n7vlbe6e98ebsiqp4lf04p8tp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "292256960269-sajkfgigf1e3tvj316lgcndi7febf763.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ColombiaHumana"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292256960269:android:ea4d4aa76d8cc946",
+        "android_client_info": {
+          "package_name": "petro.presidencia.votacion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292256960269-936k5gv1avepsrvq0oprbg9copp8hqpv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "petro.presidencia.votacion",
+            "certificate_hash": "0df13a4d64a8267ac5bc7fc549f064170c3825d0"
+          }
+        },
+        {
+          "client_id": "292256960269-92m7nihmub1as6qtm7t6uc60padpoo64.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "petro.presidencia.votacion",
+            "certificate_hash": "94641e16bbd760e3b12e99d2c6ea9dbf2f045eb9"
+          }
+        },
+        {
+          "client_id": "292256960269-srk4670n7vlbe6e98ebsiqp4lf04p8tp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtyvYe_q1Wu8pC4sTi4bGP3sGn7YGe7TE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292256960269-srk4670n7vlbe6e98ebsiqp4lf04p8tp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "292256960269-sajkfgigf1e3tvj316lgcndi7febf763.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ColombiaHumana"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

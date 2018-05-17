@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#622066</color>
     <color name="colorAccent">#622066</color>
     <color name="blanco">#fff</color>
+    <color name="gris_seleccion">#e6e6e6</color>
     <color name="rojo">#f00</color>
     <color name="color_principal">#622066</color>
     <color name="color_secundario">#eeb403</color>

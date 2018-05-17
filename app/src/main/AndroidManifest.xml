@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="votacion.presidencia.petro.testigoscolombiahumana">
 
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" ></uses-feature>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="petro.presidencia.votacion.loginActivity">
+        <activity android:name="petro.presidencia.votacion.loginActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,10 +28,11 @@
         <activity
             android:name="petro.presidencia.votacion.menuActivity"
             android:label="@string/title_activity_menu"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="petro.presidencia.votacion.subactividades.guiaActivity" />
-        <activity android:name="petro.presidencia.votacion.subactividades.anomaliasActivity" />
-        <activity android:name="petro.presidencia.votacion.subactividades.votacionActivity"></activity>
+        <activity android:name="petro.presidencia.votacion.subactividades.guiaActivity" android:screenOrientation="portrait"  android:parentActivityName="petro.presidencia.votacion.menuActivity"/>
+        <activity android:name="petro.presidencia.votacion.subactividades.anomaliasActivity" android:screenOrientation="portrait"  android:parentActivityName="petro.presidencia.votacion.menuActivity"/>
+        <activity android:name="petro.presidencia.votacion.subactividades.votacionActivity" android:screenOrientation="portrait" android:parentActivityName="petro.presidencia.votacion.menuActivity"/>
     </application>
 
 </manifest>
