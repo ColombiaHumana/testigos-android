@@ -56,9 +56,6 @@ import static android.app.Activity.RESULT_OK;
 import static petro.presidencia.votacion.menuActivity.editor;
 import static petro.presidencia.votacion.menuActivity.prefs;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class mesaFragment extends Fragment implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
 
 
@@ -72,19 +69,16 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
     }
 
 
-
-
-    JSONObject JO_datoscammpos;
-
-
-    JSONArray mesasvotadas;
-
-
     public mesaFragment() {
 
     }
 
     private static final int selectPhoto = 100;
+
+
+    JSONObject JO_datoscammpos;
+
+    JSONArray mesasvotadas;
     FirebaseStorage storage;
     StorageReference storageReference;
 
@@ -113,13 +107,14 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View V= inflater.inflate(R.layout.frament_tarjeton, container, false);
+
         textphoto =(TextView)V.findViewById(R.id.text_image);
         imagePhoto =(ImageView)V.findViewById(R.id.image);
         linear = (LinearLayout)V.findViewById(R.id.linear_image);
-
         submit=(Button)V.findViewById(R.id.t_btndatos);
         submit.setOnClickListener(this);
         linear.setOnClickListener(this);
+
         Bundle args = getArguments();
         this.ID= args.getInt("id", 0);
 
@@ -146,7 +141,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
 
 
 
-        if(prefs.contains(String.valueOf(ID))){
+        if(prefs.contains("mesa-"+String.valueOf(ID))){
             try{
                 JO_datoscammpos = new JSONObject(prefs.getString(String.valueOf(ID),""));
                 ttotalvot.setText(JO_datoscammpos.getString("ttotalvot"));
@@ -305,7 +300,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
             JO_datoscammpos.put("tblanco",tblanco.getText().toString());
             JO_datoscammpos.put("tnulos",tnulos.getText().toString());
             JO_datoscammpos.put("tnomarcados",tnomarcados.getText().toString());
-            editor.putString(String.valueOf(ID), JO_datoscammpos.toString());
+            editor.putString(String.valueOf("mesa-"+ID), JO_datoscammpos.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -463,7 +458,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
         try {
             String query = "{" +
                     "  \"result\": {" +
-                    "    \"table_id\": 1," +
+                    "    \"table_id\": "+ID+"," +
                     "    \"votes\": {" +
                     "      \"total_mesa\": "+ttotalvotos+"," +
                     "      \"petro\": "+stpetro+"," +
@@ -481,7 +476,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
                     "      \"votos_no_marcados\": "+stnomarcados+"," +
                     "      \"total_votos\": "+ttotalvotos+"" +
                     "    }," +
-                    "    \"image\": \"https://uploaded_image\"" +
+                    "    \"image\": \""+IMAGEN_URL+"\"" +
                     "  }" +
                     "}";
 
@@ -535,6 +530,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             //progressDialog.dismiss();
                             IMAGEN_URL =taskSnapshot.getDownloadUrl().toString();
+                            Log.i("firebase-image",IMAGEN_URL);
                             //Toast.makeText(getActivity(), "Imagen Subida", Toast.LENGTH_SHORT).show();
                             subir_datos();
                         }
@@ -638,6 +634,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
     public void onErrorResponse(VolleyError error) {
         error.printStackTrace();
         progressDialog.dismiss();
+        submit.setEnabled(true);
         Toasty.error(getActivity(),"Error subiendo los datos, por favor inténtalo mas tarde.",Toast.LENGTH_SHORT).show();
     }
 }

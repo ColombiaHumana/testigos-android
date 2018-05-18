@@ -22,13 +22,16 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
+<ScrollView
+    android:layout_below="@+id/logo_petro"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/login_form"
         android:padding="15dp"
-        android:gravity="center"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
-        android:layout_below="@+id/logo_petro"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
@@ -39,6 +42,7 @@
         <EditText
             android:id="@+id/cccampo"
             android:background="@drawable/linea_alrededor_edittext"
+            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -50,6 +54,8 @@
             android:textStyle="bold" />
         <EditText
             android:id="@+id/password"
+            android:maxLines="1"
+            android:imeOptions="actionDone"
             android:background="@drawable/linea_alrededor_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -61,6 +67,7 @@
             android:layout_marginTop="25dp"
             android:background="@color/color_principal"
             android:textColor="#FFF"
+
             android:text="Iniciar sesión" />
         
         <TextView
@@ -71,4 +78,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+</ScrollView>
 </RelativeLayout>
