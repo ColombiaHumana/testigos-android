@@ -12,6 +12,8 @@
 
 
         <LinearLayout
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -23,6 +25,7 @@
                 >
 
                 <LinearLayout
+                    android:id="@+id/layout_formulario"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -38,7 +41,8 @@
                             android:text="Total votos en la mesa:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -77,7 +81,8 @@
                             android:text="Gustavo petro"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -114,7 +119,8 @@
                             android:text="Promotores voto en Blanco"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -153,7 +159,8 @@
                             android:text="Ivan Duque:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -192,7 +199,8 @@
                             android:text="Humberto de la Calle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -231,7 +239,8 @@
                             android:text="Jorge Antonio Trujillo:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -270,7 +279,8 @@
                             android:text="Sergio Fajardo:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -309,7 +319,8 @@
                             android:text="Viviane Morales:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -348,7 +359,8 @@
                             android:text="Piedad Cordoba:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -387,7 +399,8 @@
                             android:text="German Varas Lleras:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -417,10 +430,15 @@
 
                     <TextView
                         android:id="@+id/total_votos_validos"
+
+                        android:textColor="@color/color_principal"
+                        android:background="@color/gris_seleccion"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/rojo"
                         android:text="Total votos validos: "
                         android:textSize="20dp" />
 
@@ -441,7 +459,8 @@
                             android:text="Votos Blanco:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -480,7 +499,8 @@
                             android:text="Votos nulos:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
                             />
 
@@ -520,8 +540,10 @@
                             android:text="Votos no marcados:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
                             android:layout_weight="70"
+
                             />
 
                         <android.support.design.widget.TextInputLayout
@@ -552,7 +574,11 @@
                         android:text="Total votos: "
                         android:gravity="center"
                         android:textSize="20dp"
-                        android:textColor="@color/rojo"
+                        android:textColor="@color/color_principal"
+                        android:background="@color/gris_seleccion"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 

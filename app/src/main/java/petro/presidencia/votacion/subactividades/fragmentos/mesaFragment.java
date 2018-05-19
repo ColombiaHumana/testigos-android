@@ -98,6 +98,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
     EditText tblanco,tnulos,tnomarcados;
 
     TextView votos_validos, total_votos;
+    View formulario;
 
     int total_candidatos=0, total_otros=0;
 
@@ -138,12 +139,13 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
 
         votos_validos=(TextView)V.findViewById(R.id.total_votos_validos);
         total_votos =(TextView)V.findViewById(R.id.totalv);
+        formulario = (LinearLayout)V.findViewById(R.id.layout_formulario);
 
 
 
         if(prefs.contains("mesa-"+String.valueOf(ID))){
             try{
-                JO_datoscammpos = new JSONObject(prefs.getString(String.valueOf(ID),""));
+                JO_datoscammpos = new JSONObject(prefs.getString("mesa-"+String.valueOf(ID),""));
                 ttotalvot.setText(JO_datoscammpos.getString("ttotalvot"));
                 tpetro.setText(JO_datoscammpos.getString("tpetro"));
                 tvotblanco.setText(JO_datoscammpos.getString("tvotblanco"));
@@ -171,6 +173,13 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
                 mesasvotadas = new JSONArray(
                         prefs.getString(votacionActivity.mesasvotadasString,"")
                 );
+
+                for(int i=0;i<mesasvotadas.length();i++){
+                    if(mesasvotadas.getInt(i)==ID){
+                        desactivar_vista();
+                    }
+                }
+
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -192,37 +201,11 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
             @Override
             public void afterTextChanged(Editable s) {
 
-                total_candidatos=0;
-
-                if(!TextUtils.isEmpty(tpetro.getText().toString())){
-                    total_candidatos+=Integer.parseInt(tpetro.getText().toString());
-                }
-                if(!TextUtils.isEmpty(tvotblanco.getText().toString())){
-                    total_candidatos+=Integer.parseInt(tvotblanco.getText().toString());
-                }
-                if(!TextUtils.isEmpty(tivanduque.getText().toString())){
-                    total_candidatos+=Integer.parseInt(tivanduque.getText().toString());
-                }
-                if(!TextUtils.isEmpty(thumberto.getText().toString())){
-                    total_candidatos+=Integer.parseInt(thumberto.getText().toString());
-                }
-                if(!TextUtils.isEmpty(ttrujillo.getText().toString())){
-                    total_candidatos+=Integer.parseInt(ttrujillo.getText().toString());
-                }
-                if(!TextUtils.isEmpty(tfajardo.getText().toString())){
-                    total_candidatos+=Integer.parseInt(tfajardo.getText().toString());
-                }
-                if(!TextUtils.isEmpty(tvmorales.getText().toString())){
-                    total_candidatos+=Integer.parseInt(tvmorales.getText().toString());
-                }
-                if(!TextUtils.isEmpty(tvargas.getText().toString())){
-                    total_candidatos+=Integer.parseInt(tvargas.getText().toString());
-                }
-                if(!TextUtils.isEmpty(tpcordoba.getText().toString())){
-                    total_candidatos+=Integer.parseInt(tpcordoba.getText().toString());
+                if(s.equals("")){
+                    return;
                 }
 
-                votos_validos.setText("Total votos validos: "+total_candidatos);
+                hacerConteo();
 
             }
         };
@@ -246,20 +229,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
                 if(s.equals("")){
                     return;
                 }
-                total_otros = total_candidatos;
-                if(!TextUtils.isEmpty(tblanco.getText().toString())){
-                    total_otros+=Integer.parseInt(tblanco.getText().toString());
-                }
-
-                if(!TextUtils.isEmpty(tnulos.getText().toString())){
-                    total_otros+=Integer.parseInt(tnulos.getText().toString());
-                }
-
-                if(!TextUtils.isEmpty(tnomarcados.getText().toString())){
-                    total_otros+=Integer.parseInt(tnomarcados.getText().toString());
-                }
-
-                total_votos.setText("Total votos: "+(total_otros));
+               hacerConteo();
             }
         };
 
@@ -281,6 +251,79 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
         return V;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        hacerConteo();
+    }
+
+
+    private static void setViewAndChildrenEnabled(View view, boolean enabled) {
+        view.setEnabled(enabled);
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                setViewAndChildrenEnabled(child, enabled);
+            }
+        }
+    }
+
+    void desactivar_vista(){
+        setViewAndChildrenEnabled(formulario,false);
+    }
+
+
+    void hacerConteo(){
+        total_candidatos=0;
+
+        if(!TextUtils.isEmpty(tpetro.getText().toString())){
+            total_candidatos+=Integer.parseInt(tpetro.getText().toString());
+        }
+        if(!TextUtils.isEmpty(tvotblanco.getText().toString())){
+            total_candidatos+=Integer.parseInt(tvotblanco.getText().toString());
+        }
+        if(!TextUtils.isEmpty(tivanduque.getText().toString())){
+            total_candidatos+=Integer.parseInt(tivanduque.getText().toString());
+        }
+        if(!TextUtils.isEmpty(thumberto.getText().toString())){
+            total_candidatos+=Integer.parseInt(thumberto.getText().toString());
+        }
+        if(!TextUtils.isEmpty(ttrujillo.getText().toString())){
+            total_candidatos+=Integer.parseInt(ttrujillo.getText().toString());
+        }
+        if(!TextUtils.isEmpty(tfajardo.getText().toString())){
+            total_candidatos+=Integer.parseInt(tfajardo.getText().toString());
+        }
+        if(!TextUtils.isEmpty(tvmorales.getText().toString())){
+            total_candidatos+=Integer.parseInt(tvmorales.getText().toString());
+        }
+        if(!TextUtils.isEmpty(tvargas.getText().toString())){
+            total_candidatos+=Integer.parseInt(tvargas.getText().toString());
+        }
+        if(!TextUtils.isEmpty(tpcordoba.getText().toString())){
+            total_candidatos+=Integer.parseInt(tpcordoba.getText().toString());
+        }
+
+        votos_validos.setText("Total votos validos: "+total_candidatos);
+
+
+        total_otros = total_candidatos;
+        if(!TextUtils.isEmpty(tblanco.getText().toString())){
+            total_otros+=Integer.parseInt(tblanco.getText().toString());
+        }
+
+        if(!TextUtils.isEmpty(tnulos.getText().toString())){
+            total_otros+=Integer.parseInt(tnulos.getText().toString());
+        }
+
+        if(!TextUtils.isEmpty(tnomarcados.getText().toString())){
+            total_otros+=Integer.parseInt(tnomarcados.getText().toString());
+        }
+
+        total_votos.setText("Total votos: "+(total_otros));
+    }
+
 
 
     @Override
@@ -296,12 +339,14 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
             JO_datoscammpos.put("tfajardo",tfajardo.getText().toString());
             JO_datoscammpos.put("tvmorales",tvmorales.getText().toString());
             JO_datoscammpos.put("tvargas",tvargas.getText().toString());
-            JO_datoscammpos.put("tpcordoba ",tpcordoba .getText().toString());
+            JO_datoscammpos.put("tpcordoba",tpcordoba.getText().toString());
+
             JO_datoscammpos.put("tblanco",tblanco.getText().toString());
             JO_datoscammpos.put("tnulos",tnulos.getText().toString());
             JO_datoscammpos.put("tnomarcados",tnomarcados.getText().toString());
-            editor.putString(String.valueOf("mesa-"+ID), JO_datoscammpos.toString());
 
+            editor.putString(String.valueOf("mesa-"+ID), JO_datoscammpos.toString());
+            editor.apply();
         } catch (JSONException e) {
             e.printStackTrace();
 
@@ -383,46 +428,42 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
 
     void validar_campos(){
 
-        if(TextUtils.isEmpty(ttotalvot.getText().toString())){
-            ttotalvot.setText(total_otros);
-        }
-        if(TextUtils.isEmpty(tpetro.getText().toString())){
+        if("".equals(tpetro.getText().toString())){
             tpetro.setText("0");
         }
-        if(TextUtils.isEmpty(tvotblanco.getText().toString())){
+        if("".equals(tvotblanco.getText().toString())){
             tvotblanco.setText("0");
         }
-        if(TextUtils.isEmpty(tivanduque.getText().toString())){
+        if("".equals(tivanduque.getText().toString())){
             tivanduque.setText("0");
         }
-        if(TextUtils.isEmpty(thumberto.getText().toString())){
+        if("".equals(thumberto.getText().toString())){
             thumberto.setText("0");
         }
-        if(TextUtils.isEmpty(ttrujillo.getText().toString())){
+        if("".equals(ttrujillo.getText().toString())){
             ttrujillo.setText("0");
         }
-        if(TextUtils.isEmpty(tfajardo.getText().toString())){
+        if("".equals(tfajardo.getText().toString())){
             tfajardo.setText("0");
         }
-        if(TextUtils.isEmpty(tvmorales.getText().toString())){
+        if("".equals(tvmorales.getText().toString())){
             tvmorales.setText("0");
         }
-        if(TextUtils.isEmpty(tvargas.getText().toString())){
+        if("".equals(tvargas.getText().toString())){
             tvargas.setText("0");
         }
-        if(TextUtils.isEmpty(tpcordoba.getText().toString())){
+        if("".equals(tpcordoba.getText().toString())){
             tpcordoba .setText("0");
         }
-        if(TextUtils.isEmpty(tblanco.getText().toString())){
+        if("".equals(tblanco.getText().toString())){
             tblanco.setText("0");
         }
-        if(TextUtils.isEmpty(tnulos.getText().toString())){
+        if("".equals(tnulos.getText().toString())){
             tnulos.setText("0");
         }
-        if(TextUtils.isEmpty(tnomarcados.getText().toString())){
+        if("".equals(tnomarcados.getText().toString())){
             tnomarcados.setText("0");
         }
-
 
 
     }
@@ -589,6 +630,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
             editor.putString(votacionActivity.mesasvotadasString,mesasvotadas.toString());
             editor.apply();
         }
+        desactivar_vista();
     }
 
 

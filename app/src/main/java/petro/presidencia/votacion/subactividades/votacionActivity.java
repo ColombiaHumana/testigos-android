@@ -85,9 +85,7 @@ public class votacionActivity extends AppCompatActivity {
                 int ID = JO.getInt("id");
                 String mesanombre = JO.getString("name");
 
-                if (esmesavotada(ID)) {
-                    continue;
-                }
+                //if (esmesavotada(ID)) {continue;}
 
 
                 mesaFragment AF = mesaFragment.getMesaFragment(ID);
@@ -96,11 +94,7 @@ public class votacionActivity extends AppCompatActivity {
                 adapter.addFragment(AF, mesanombre);
             }
 
-            if(NUMERO_MESA>3){
-                tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-            }else{
-                tabLayout.setTabMode(TabLayout.MODE_FIXED);
-            }
+            tabLayout.setTabMode(NUMERO_MESA>3?TabLayout.MODE_SCROLLABLE:TabLayout.MODE_FIXED);
 
         } catch (Exception e) {
             Toasty.error(this, "Error: Deslogueate y vuelvete a loguear en la aplicacion", Toast.LENGTH_LONG).show();

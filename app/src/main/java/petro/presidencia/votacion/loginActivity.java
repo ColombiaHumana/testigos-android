@@ -135,7 +135,7 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
             String URL = getResources().getString(R.string.SERVER) + "/api/user_token";
 
 
-            final JSONObject jsonBody = new JSONObject("{\"auth\": {\"email\": \""+emaila+"\",\"password\": \""+password+"\"}}");
+            final JSONObject jsonBody = new JSONObject("{\"auth\": {\"document\": \""+emaila+"\",\"password\": \""+password+"\"}}");
 
 
             JsonObjectRequest JOA = new JsonObjectRequest(

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,16 +62,16 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
         setTitle("Anomalías");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
 
-        menuActivity.   prefs = getSharedPreferences(menuActivity.MY_PREFS_NAME, MODE_PRIVATE);
+        menuActivity.prefs = getSharedPreferences(menuActivity.MY_PREFS_NAME, MODE_PRIVATE);
 
     }
+    int numTABS=0;
 
 
     private void setupViewPager(ViewPager viewPager) {
@@ -92,8 +93,12 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
                 String mesanombre = JO.getString("name");
                 anomaliaFragment AF = anomaliaFragment.getAnomaliaFragment(ID);
 
+                numTABS++;
                 adapter.addFragment(AF, mesanombre);
             }
+
+            tabLayout.setTabMode(numTABS>3?TabLayout.MODE_SCROLLABLE:TabLayout.MODE_FIXED);
+
 
         } catch (Exception e) {
             Toasty.error(this, "Error: Deslogueate y vuelvete a loguear en la aplicacion", Toast.LENGTH_LONG).show();
@@ -139,8 +144,12 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
         adapter.getItem(viewPager.getCurrentItem()).onActivityResult(requestCode, resultCode, data);
     }
 
+    View anomaliaView;
+
     public void denuncia(View view) {
+        anomaliaView=view;
         int id = view.getId();
+
 
         switch (id) {
             case R.id.jurados_votacion:
@@ -190,7 +199,7 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        ((RadioButton)anomaliaView).setChecked(false);
                     }
                 })
                 .create();
@@ -258,6 +267,7 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
     @Override
     public void onErrorResponse(VolleyError error) {
         Toasty.error(this,"Verifica tu conexion a internet",Toast.LENGTH_SHORT).show();
+        ((RadioButton)anomaliaView).setChecked(false);
         error.printStackTrace();
     }
 
