@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import petro.presidencia.votacion.subactividades.anomaliasActivity;
+import petro.presidencia.votacion.subactividades.asistenciaActivity;
 import petro.presidencia.votacion.subactividades.guiaActivity;
 import petro.presidencia.votacion.subactividades.votacionActivity;
 import petro.presidencia.votacion.utils.Peticiones;
@@ -34,7 +35,7 @@ import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 public class menuActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
-    ImageView guias,anomalias,registro;
+    ImageView guias,anomalias,registro,asistencia;
 
 
 
@@ -43,6 +44,7 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
     public static String MY_PREFS_NAME = "login";
 
     public static String token;
+
 
 
     @Override
@@ -57,7 +59,7 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
         guias=(ImageView)findViewById(R.id.guias);
         anomalias=(ImageView)findViewById(R.id.anomalias);
         registro=(ImageView)findViewById(R.id.registro);
-
+        asistencia=(ImageView)findViewById(R.id.asistencia);
 
 
         prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -117,6 +119,12 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
                 startActivity(new Intent(getApplicationContext(),votacionActivity.class));
             }
         });
+        asistencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),asistenciaActivity.class));
+            }
+        });
     }
 
 
@@ -134,6 +142,11 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
                 //((TextView)HEADER.findViewById(R.id.head_text)).setText("Bienvenido: "+nombre);
                 //((TextView)HEADER.findViewById(R.id.head_text)).setTextSize(18);
 
+
+                // SI ES COORDINADOR
+                if(response.getJSONObject("user").has("coordinator") && response.getJSONObject("user").getBoolean("coordinator")){
+                    asistencia.setVisibility(View.VISIBLE);
+                }
 
                 if (menuActivity.prefs.contains(votacionActivity.mesasvotadasString)) {
                     JSONArray mesasvotadasJ = new JSONArray(menuActivity.prefs.getString(votacionActivity.mesasvotadasString,""));

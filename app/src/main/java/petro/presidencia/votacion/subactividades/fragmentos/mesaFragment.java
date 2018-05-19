@@ -497,6 +497,10 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
 
         JSONObject JO = new JSONObject();
         try {
+
+
+
+
             String query = "{" +
                     "  \"result\": {" +
                     "    \"table_id\": "+ID+"," +

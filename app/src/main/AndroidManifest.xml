@@ -2,14 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="votacion.presidencia.petro.testigoscolombiahumana">
 
-
-
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" ></uses-feature>
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="petro.presidencia.votacion.loginActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"> >
+        <activity
+            android:name="petro.presidencia.votacion.loginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,9 +34,22 @@
             android:label="@string/title_activity_menu"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="petro.presidencia.votacion.subactividades.guiaActivity" android:screenOrientation="portrait"  android:parentActivityName="petro.presidencia.votacion.menuActivity"/>
-        <activity android:name="petro.presidencia.votacion.subactividades.anomaliasActivity" android:screenOrientation="portrait"  android:parentActivityName="petro.presidencia.votacion.menuActivity"/>
-        <activity android:name="petro.presidencia.votacion.subactividades.votacionActivity" android:screenOrientation="portrait" android:parentActivityName="petro.presidencia.votacion.menuActivity"/>
+        <activity
+            android:name="petro.presidencia.votacion.subactividades.guiaActivity"
+            android:parentActivityName="petro.presidencia.votacion.menuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="petro.presidencia.votacion.subactividades.anomaliasActivity"
+            android:parentActivityName="petro.presidencia.votacion.menuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="petro.presidencia.votacion.subactividades.votacionActivity"
+            android:parentActivityName="petro.presidencia.votacion.menuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="petro.presidencia.votacion.subactividades.asistenciaActivity"
+            android:parentActivityName="petro.presidencia.votacion.menuActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

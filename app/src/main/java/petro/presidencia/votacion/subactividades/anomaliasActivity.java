@@ -178,6 +178,8 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
                 id_anomalia = 6;
                 break;
         }
+
+        mensajes+="\n\n Asegúrate de hacer la reclamación correspondiente.";
         tipoanomalia=((TextView)view).getText().toString();
 
         DD = new Dialog(this);
@@ -201,7 +203,7 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
                     public void onClick(DialogInterface dialog, int which) {
                         ((RadioButton)anomaliaView).setChecked(false);
                     }
-                })
+                }).setCancelable(false)
                 .create();
     }
 
@@ -245,7 +247,7 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
             if (response.has("ok")) {
                 if (response.getBoolean("ok") == true) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage("Anomalía:"+tipoanomalia+"; ha sido envíada exitosamente")
+                    builder.setMessage("Anomalía: "+tipoanomalia+". Ha sido envíada exitosamente.")
                             .setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
