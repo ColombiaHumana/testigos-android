@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
+            android:layout_marginTop="5dp"
             android:id="@+id/cccampo"
             android:background="@drawable/linea_alrededor_edittext"
             android:maxLines="1"
@@ -54,9 +55,10 @@
             android:text="Contraseña:"
             android:textStyle="bold" />
         <EditText
+            android:layout_marginTop="5dp"
             android:id="@+id/password"
             android:maxLines="1"
-            android:inputType="textVisiblePassword"
+            android:inputType="textPassword"
             android:imeOptions="actionDone"
             android:background="@drawable/linea_alrededor_edittext"
             android:layout_width="match_parent"

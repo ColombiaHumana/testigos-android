@@ -45,6 +45,8 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
 
     public static String token;
 
+    TextView puesto;
+
 
 
     @Override
@@ -60,7 +62,7 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
         anomalias=(ImageView)findViewById(R.id.anomalias);
         registro=(ImageView)findViewById(R.id.registro);
         asistencia=(ImageView)findViewById(R.id.asistencia);
-
+        puesto = (TextView)findViewById(R.id.puestotexto);
 
         prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         editor = prefs.edit();
@@ -142,11 +144,17 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
                 //((TextView)HEADER.findViewById(R.id.head_text)).setText("Bienvenido: "+nombre);
                 //((TextView)HEADER.findViewById(R.id.head_text)).setTextSize(18);
 
+                puesto.setText(
+                        "PUESTO: "+response.getJSONObject("user").getJSONObject("post").getString("name")
+                );
 
                 // SI ES COORDINADOR
                 if(response.getJSONObject("user").has("coordinator") && response.getJSONObject("user").getBoolean("coordinator")){
                     asistencia.setVisibility(View.VISIBLE);
+                    puesto.setVisibility(View.VISIBLE);
                 }
+
+
 
                 if (menuActivity.prefs.contains(votacionActivity.mesasvotadasString)) {
                     JSONArray mesasvotadasJ = new JSONArray(menuActivity.prefs.getString(votacionActivity.mesasvotadasString,""));

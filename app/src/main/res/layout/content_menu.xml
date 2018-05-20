@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="#fefefe"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_menu">
 
     <RelativeLayout
@@ -13,95 +13,94 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-
-            android:text="LALALA"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <ImageView
-
-
-            android:adjustViewBounds="true"
-            android:src="@drawable/banner_app"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/banner_app" />
+
+        <TextView
+            android:id="@+id/puestotexto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#39133b"
+            android:textColor="#FFF"
+            android:padding="8dp"
+            android:text="LALALA"
+            android:visibility="visible" />
     </RelativeLayout>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/imagenban"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".5"
-        android:gravity="center"
-        >
-        <ImageView
-            android:padding="35dp"
-            android:id="@+id/guias"
-            android:text="GUIAS"
-            android:src="@drawable/guias"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".5"
-
-            android:background="@drawable/linea_alrededoranomalias"
-            />
-
-
-
-        <ImageView
-            android:padding="35dp"
-            android:src="@drawable/anomalias"
-            android:id="@+id/anomalias"
-            android:text="ANOMALIAS"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_weight=".5"
-
-            android:layout_height="match_parent"
-            android:background="@drawable/linea_alrededoranomalias"
-
-            />
-
-    </LinearLayout>
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_weight=".5"
-            android:gravity="center"
-
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/guias"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:background="@drawable/linea_alrededoranomalias"
+                android:gravity="center"
+                android:padding="35dp"
+                android:src="@drawable/guias"
+
+                android:text="GUIAS" />
 
 
             <ImageView
-                android:visibility="gone"
+                android:id="@+id/anomalias"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight=".5"
+                android:background="@drawable/linea_alrededoranomalias"
+                android:gravity="center"
                 android:padding="35dp"
+
+                android:src="@drawable/anomalias"
+                android:text="ANOMALIAS"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_weight=".5"
+            android:gravity="center">
+
+
+            <ImageView
                 android:id="@+id/asistencia"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:background="@drawable/linea_alrededoranomalias"
+                android:gravity="center"
+                android:padding="35dp"
                 android:src="@drawable/asistencia"
                 android:text="REGISTRO"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:background="@drawable/linea_alrededoranomalias"
-                />
+                android:visibility="gone" />
+
             <ImageView
-                android:layout_weight=".5"
-                android:padding="35dp"
                 android:id="@+id/registro"
-                android:src="@drawable/registro"
-                android:text="REGISTRO"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_weight=".5"
                 android:background="@drawable/linea_alrededoranomalias"
-                />
+                android:gravity="center"
+                android:padding="35dp"
+                android:src="@drawable/registro"
+                android:text="REGISTRO" />
 
 
         </LinearLayout>
