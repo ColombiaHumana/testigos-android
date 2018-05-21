@@ -45,6 +45,8 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
     static String MY_PREFS_NAME = "login";
     Button submit;
 
+    TextView forgot;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,14 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
 
 
         cc_campo = (EditText)findViewById(R.id.cccampo);
+        forgot = (TextView)findViewById(R.id.pass_forget);
+
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),forgorActivity.class));
+            }
+        });
 
         passwordcampo = (EditText) findViewById(R.id.password);
         passwordcampo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -226,8 +236,5 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
         error.printStackTrace();
     }
 
-    public void lostpassword(View view) {
-
-    }
 
 }

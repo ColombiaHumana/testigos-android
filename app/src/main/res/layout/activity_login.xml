@@ -42,7 +42,7 @@
         <EditText
             android:layout_marginTop="5dp"
             android:id="@+id/cccampo"
-            android:background="@drawable/linea_alrededor_edittext"
+
             android:maxLines="1"
             android:inputType="number"
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
             android:maxLines="1"
             android:inputType="textPassword"
             android:imeOptions="actionDone"
-            android:background="@drawable/linea_alrededor_edittext"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -75,6 +75,7 @@
             android:text="Iniciar sesión" />
         
         <TextView
+            android:id="@+id/pass_forget"
             android:paddingTop="10dp"
             android:gravity="center_horizontal"
             android:text="¿Olvidó su contraseña?"
