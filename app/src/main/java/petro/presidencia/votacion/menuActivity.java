@@ -1,23 +1,32 @@
 package petro.presidencia.votacion;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +34,10 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import es.dmoral.toasty.Toasty;
 import petro.presidencia.votacion.subactividades.anomaliasActivity;
 import petro.presidencia.votacion.subactividades.asistenciaActivity;
 import petro.presidencia.votacion.subactividades.guiaActivity;
@@ -47,12 +59,16 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
 
     TextView puesto;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+    AlertDialog dialogoCorreo;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setCurrentScreen(this, "Menu", null /* class override */);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -155,18 +171,25 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
                 }
 
 
+                if(response.getJSONObject("user").has("email") && !response.getJSONObject("user").getBoolean("email")){
 
-                if (menuActivity.prefs.contains(votacionActivity.mesasvotadasString)) {
-                    JSONArray mesasvotadasJ = new JSONArray(menuActivity.prefs.getString(votacionActivity.mesasvotadasString,""));
-                    //int cant_mesas = mesasvotadasJ.length();
-                    JSONArray arraymesas = new JSONObject(response.toString()).getJSONObject("user").getJSONArray("tables");
-
-                    if(mesasvotadasJ.length() == arraymesas.length()){
-
-                        // AGREGAR BOTON GRIS
+                    if(! prefs.getBoolean("correoenviado",false)){
+                        mostrarDialogoPedirCorreo();
                     }
 
                 }
+
+                String departamento = response.getJSONObject("user").getJSONObject("department").getString("name");
+                String municipio = response.getJSONObject("user").getJSONObject("municipality").getString("name");
+                String puesto = response.getJSONObject("user").getJSONObject("post").getString("name");
+                String escoordinador = response.getJSONObject("user").getBoolean("coordinator")?"coordinador":"testigo";
+
+                FirebaseMessaging.getInstance().subscribeToTopic(departamento);
+                FirebaseMessaging.getInstance().subscribeToTopic(municipio);
+                FirebaseMessaging.getInstance().subscribeToTopic(puesto);
+                FirebaseMessaging.getInstance().subscribeToTopic(escoordinador);
+
+
 
 
             }
@@ -200,5 +223,104 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    void enviar_correo(String email) throws Exception{
+
+        Response.Listener<JSONObject> rta = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                if(!response.has("user")){
+                    return;
+                }
+                editor.putBoolean("correoenviado",true);
+                editor.apply();
+                Toasty.success(getApplicationContext(),"Tu Email ha sido registrado", Toast.LENGTH_LONG).show();
+            };
+        };
+
+        String ask = "{\n" +
+                "    \"user\": {\n" +
+                "        \"email\": \""+email+"\"\n" +
+                "    }\n" +
+                "}";
+        JSONObject user = new JSONObject(ask);
+
+
+        String URL = getResources().getString(R.string.SERVER)+"/api/user/email";
+        JsonObjectRequest JOA = new JsonObjectRequest(
+                Request.Method.GET,
+                URL,
+                user,
+                rta, this
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("content-type", "application/json");
+                params.put("Authorization",token);
+                return params;
+            }
+        };
+
+
+        Peticiones.hacerPeticion(this,JOA);
+
+
+        dialogoCorreo.dismiss();
+    }
+
+
+
+    void mostrarDialogoPedirCorreo(){
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_pedircorreo, null);
+        dialogoCorreo = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setTitle("Por favor escribe tu E-mail")
+                .setPositiveButton(android.R.string.ok, null) //Set to null. We override the onclick
+                .create();
+
+
+
+
+        dialogoCorreo.show();
+        final EditText campo_correo = (EditText) dialogoCorreo.findViewById(R.id.input_correo);
+        final TextInputLayout texinput = (TextInputLayout)dialogoCorreo.findViewById(R.id.input_layout_email);
+
+        Button b = dialogoCorreo.getButton(AlertDialog.BUTTON_POSITIVE);
+        b.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                String email = campo_correo.getText().toString();
+                Log.i("validacion","Correo: "+campo_correo.getText().toString());
+                if(isEmailValid(email)){
+                    try {
+
+                        enviar_correo(email);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }else{
+                    texinput.setError("E-mail inválido");
+                }
+            }
+        });
+
+
+
+
+
+    }
+
+
+
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
 
 }

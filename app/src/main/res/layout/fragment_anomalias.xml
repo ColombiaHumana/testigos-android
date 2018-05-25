@@ -70,8 +70,7 @@ https://stackoverflow.com/questions/4259295/how-can-i-set-the-width-of-radio-but
                 android:textColor="@color/color_principal"
                 android:layout_weight=".5"
                 android:button="@drawable/anomalias_radiobutonselector"
-                
-                android:text="CENTRO EXTEMPORANEO" />
+                android:text="VOTACIÓN EXTEMPORÁNEA" />
 
             <RadioButton
                 android:id="@+id/no_destruccion"

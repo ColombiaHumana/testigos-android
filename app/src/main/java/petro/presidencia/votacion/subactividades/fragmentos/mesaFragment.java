@@ -94,7 +94,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
     String IMAGEN_URL;
 
     EditText ttotalvot;
-    EditText tpetro, tvotblanco,tivanduque,thumberto,ttrujillo,tfajardo,tvmorales,tvargas,tpcordoba;
+    EditText tpetro, tvotblanco,tivanduque,thumberto,ttrujillo,tfajardo,tvmorales,tvargas;
     EditText tblanco,tnulos,tnomarcados;
 
     TextView votos_validos, total_votos;
@@ -131,7 +131,6 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
         tfajardo= (EditText)V.findViewById(R.id.t_s_fajardo);
         tvmorales= (EditText)V.findViewById(R.id.t_v_morales);
         tvargas= (EditText)V.findViewById(R.id.t_vargas_lleras);
-        tpcordoba = (EditText)V.findViewById(R.id.t_pcordoba);
 
         tblanco=(EditText)V.findViewById(R.id.t_votos_blanco);
         tnulos=(EditText)V.findViewById(R.id.t_votos_nulos);
@@ -155,7 +154,6 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
                 tfajardo.setText(JO_datoscammpos.getString("tfajardo"));
                 tvmorales.setText(JO_datoscammpos.getString("tvmorales"));
                 tvargas.setText(JO_datoscammpos.getString("tvargas"));
-                tpcordoba.setText(JO_datoscammpos.getString("tpcordoba"));
                 tblanco.setText(JO_datoscammpos.getString("tblanco"));
                 tnulos.setText(JO_datoscammpos.getString("tnulos"));
                 tnomarcados.setText(JO_datoscammpos.getString("tnomarcados"));
@@ -242,7 +240,6 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
         tfajardo.addTextChangedListener(candidatos);
         tvmorales.addTextChangedListener(candidatos);
         tvargas.addTextChangedListener(candidatos);
-        tpcordoba.addTextChangedListener(candidatos);
 
         tblanco.addTextChangedListener(blanconulomarcado);
         tnulos.addTextChangedListener(blanconulomarcado);
@@ -301,17 +298,16 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
         if(!TextUtils.isEmpty(tvargas.getText().toString())){
             total_candidatos+=Integer.parseInt(tvargas.getText().toString());
         }
-        if(!TextUtils.isEmpty(tpcordoba.getText().toString())){
-            total_candidatos+=Integer.parseInt(tpcordoba.getText().toString());
+
+        if(!TextUtils.isEmpty(tblanco.getText().toString())){
+            total_candidatos+=Integer.parseInt(tblanco.getText().toString());
         }
 
         votos_validos.setText("Total votos validos: "+total_candidatos);
 
 
         total_otros = total_candidatos;
-        if(!TextUtils.isEmpty(tblanco.getText().toString())){
-            total_otros+=Integer.parseInt(tblanco.getText().toString());
-        }
+
 
         if(!TextUtils.isEmpty(tnulos.getText().toString())){
             total_otros+=Integer.parseInt(tnulos.getText().toString());
@@ -339,7 +335,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
             JO_datoscammpos.put("tfajardo",tfajardo.getText().toString());
             JO_datoscammpos.put("tvmorales",tvmorales.getText().toString());
             JO_datoscammpos.put("tvargas",tvargas.getText().toString());
-            JO_datoscammpos.put("tpcordoba",tpcordoba.getText().toString());
+
 
             JO_datoscammpos.put("tblanco",tblanco.getText().toString());
             JO_datoscammpos.put("tnulos",tnulos.getText().toString());
@@ -452,9 +448,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
         if("".equals(tvargas.getText().toString())){
             tvargas.setText("0");
         }
-        if("".equals(tpcordoba.getText().toString())){
-            tpcordoba .setText("0");
-        }
+
         if("".equals(tblanco.getText().toString())){
             tblanco.setText("0");
         }
@@ -484,7 +478,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
         String stfajardo=tfajardo.getText().toString();
         String stvmorales=tvmorales.getText().toString();
         String stvargas=tvargas.getText().toString();
-        String stpcordoba =tpcordoba .getText().toString();
+
         String stblanco=tblanco.getText().toString();
         String stnulos=tnulos.getText().toString();
         String stnomarcados=tnomarcados.getText().toString();
@@ -513,13 +507,12 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
                     "      \"trujillo\": "+sttrujillo+"," +
                     "      \"fajardo\": "+stfajardo+"," +
                     "      \"morales\": "+stvmorales+"," +
-                    "      \"piedad\": "+stpcordoba+"," +
                     "      \"vargas\": "+stvargas+"," +
                     "      \"votos_validos\": "+total_candidatos+"," +
                     "      \"votos_blancos\": "+stblanco+"," +
                     "      \"votos_nulos\": "+stnulos+"," +
                     "      \"votos_no_marcados\": "+stnomarcados+"," +
-                    "      \"total_votos\": "+ttotalvotos+"" +
+                    "      \"total\": "+ttotalvotos+"" +
                     "    }," +
                     "    \"image\": \""+IMAGEN_URL+"\"" +
                     "  }" +

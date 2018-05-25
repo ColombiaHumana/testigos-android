@@ -52,15 +52,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
-            android:text="Contraseña:"
+            android:text="Pin de acceso:"
             android:textStyle="bold" />
         <EditText
             android:layout_marginTop="5dp"
             android:id="@+id/password"
             android:maxLines="1"
-            android:inputType="textPassword"
+            android:inputType="numberPassword"
             android:imeOptions="actionDone"
-
+            android:maxLength="12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

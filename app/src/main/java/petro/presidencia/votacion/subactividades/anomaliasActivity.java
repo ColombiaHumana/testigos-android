@@ -22,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,6 +53,7 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
     String tipoanomalia="";
     int id_anomalia = 0;
 
+    FirebaseAnalytics mFirebaseAnalytics;
 
 
 
@@ -61,6 +63,9 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
         setContentView(R.layout.tab_layout);
         setTitle("Anomalías");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setCurrentScreen(this, "Anomalias", null /* class override */);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);

@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,15 +25,21 @@ public class forgorActivity extends AppCompatActivity implements View.OnClickLis
 
     EditText email;
     Button submit;
+    TextView mesaje;
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setCurrentScreen(this, "RecuperarContrasena", null /* class override */);
         setContentView(R.layout.activity_forgor);
         setTitle("Recuperar contraseña");
         email = (EditText)findViewById(R.id.email);
         submit = (Button)findViewById(R.id.submit);
         submit.setOnClickListener(this);
+        mesaje = (TextView)findViewById(R.id.noemail);
     }
 
     @Override
@@ -77,6 +85,7 @@ public class forgorActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onErrorResponse(VolleyError error) {
+        mesaje.setVisibility(View.VISIBLE);
         error.printStackTrace();
     }
 }

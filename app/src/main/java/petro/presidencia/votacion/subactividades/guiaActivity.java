@@ -9,14 +9,21 @@ import android.view.View;
 import android.widget.Scroller;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 public class guiaActivity extends AppCompatActivity {
+
+
+    FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guia);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setCurrentScreen(this, "Guias", null /* class override */);
         setTitle("Guías");
     }
 

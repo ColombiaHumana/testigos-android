@@ -40,7 +40,7 @@
         <TextView
             android:layout_marginTop="14dp"
             android:textSize="18dp"
-            android:text="Ingrese la dirección de correo electrónico asociado a su cuenta de yen breves minutos le enviaremos las instrucciones de acceso."
+            android:text="Ingrese la dirección de correo electrónico asociado a su cuenta de y en breves minutos le enviaremos las instrucciones de acceso."
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -51,6 +51,15 @@
             android:text="Enviar"
             android:background="@color/color_principal"
             android:textColor="#FFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/noemail"
+            android:textSize="18dp"
+            android:text="No tenemos ninguna cuenta asociada a ese correo, ponte en contacto con testigos@petro.com.co"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

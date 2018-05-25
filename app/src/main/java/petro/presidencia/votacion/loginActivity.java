@@ -5,12 +5,16 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -21,11 +25,13 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import es.dmoral.toasty.Toasty;
+import petro.presidencia.votacion.subactividades.guiaActivity;
 import petro.presidencia.votacion.utils.Peticiones;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
@@ -47,9 +53,13 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
 
     TextView forgot;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setCurrentScreen(this, "Login", null /* class override */);
         setContentView(R.layout.activity_login);
         setTitle("");
 
@@ -99,12 +109,32 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
     @Override
     protected void onStart() {
         super.onStart();
+
+
+
+
         if (prefs.getString("token", null) != null) {
             startActivity(new Intent(this, menuActivity.class));
             finish();
         }
+    }
+    private static final int MENU_ITEM_ITEM1 = 1;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Guías");
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_ITEM_ITEM1:
+                startActivity(new Intent(this,guiaActivity.class));
+                return true;
 
+            default:
+                return false;
+        }
     }
 
     private void attemptLogin() {

@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -33,10 +35,15 @@ public class votacionActivity extends AppCompatActivity {
 
     public final static String mesasvotadasString = "mesasvotadas";
 
+    FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_layout);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setCurrentScreen(this, "Votacion", null /* class override */);
+
         setTitle("Registro");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
