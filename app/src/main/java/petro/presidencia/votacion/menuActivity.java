@@ -257,7 +257,18 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
 
         if (id == R.id.action_settings) {
             mFirebaseAnalytics.resetAnalyticsData();
-            db.collection("token-usuarios").document(cedula).delete();
+
+            db.collection("token-usuarios").document("/"+cedula).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    e.printStackTrace();
+                }
+            });
             editor.clear().apply();
             finish();
             return true;

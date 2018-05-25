@@ -325,7 +325,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
     @Override
     public void onDetach() {
         super.onDetach();
-        try {git ad
+        try {
             JO_datoscammpos.put("ttotalvot",ttotalvot.getText().toString());
             JO_datoscammpos.put("tpetro",tpetro.getText().toString());
             JO_datoscammpos.put("tvotblanco",tvotblanco.getText().toString());
