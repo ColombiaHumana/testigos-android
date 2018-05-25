@@ -68,7 +68,12 @@ public class forgorActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onResponse(JSONObject response) {
+
         if(response.has("ok")){
+            Bundle params = new Bundle();
+            params.putInt("correos", 1);
+            mFirebaseAnalytics.logEvent("correos_enviados", params);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Se ha enviado un correo de recuperación a tu cuenta.")
                     .setCancelable(false)
