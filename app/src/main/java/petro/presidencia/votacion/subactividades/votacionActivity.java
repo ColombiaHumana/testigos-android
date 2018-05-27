@@ -95,7 +95,7 @@ public class votacionActivity extends AppCompatActivity {
                 //if (esmesavotada(ID)) {continue;}
 
 
-                mesaFragment AF = mesaFragment.getMesaFragment(ID);
+                mesaFragment AF = mesaFragment.getMesaFragment(ID,mesanombre);
 
                 NUMERO_MESA+=1;
                 adapter.addFragment(AF, mesanombre);

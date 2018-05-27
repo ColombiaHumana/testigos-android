@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,6 +31,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -50,9 +53,12 @@ import es.dmoral.toasty.Toasty;
 import petro.presidencia.votacion.menuActivity;
 import petro.presidencia.votacion.subactividades.votacionActivity;
 import petro.presidencia.votacion.utils.Peticiones;
+import petro.presidencia.votacion.utils.estaticos;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
+import static petro.presidencia.votacion.menuActivity.MY_PREFS_NAME;
 import static petro.presidencia.votacion.menuActivity.editor;
 import static petro.presidencia.votacion.menuActivity.prefs;
 
@@ -60,13 +66,17 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
 
 
 
-    public static mesaFragment getMesaFragment(int ID){
+    public static mesaFragment getMesaFragment(int ID,String NOMBRE){
         mesaFragment F = new mesaFragment();
         Bundle args = new Bundle();
         args.putInt("id", ID);
+        args.putString("mesa", NOMBRE);
         F.setArguments(args);
         return F;
     }
+
+    DatabaseReference mDatabase;
+
 
 
     public mesaFragment() {
@@ -91,6 +101,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
     Button submit;
 
     int ID;
+    String NOMBRE_MESA;
     String IMAGEN_URL;
 
     EditText ttotalvot;
@@ -118,9 +129,12 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
 
         Bundle args = getArguments();
         this.ID= args.getInt("id", 0);
+        this.NOMBRE_MESA = args.getString("mesa","");
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
 
         ttotalvot= (EditText)V.findViewById(R.id.t_totalvot);
         tpetro= (EditText)V.findViewById(R.id.t_petro);
@@ -140,11 +154,15 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
         total_votos =(TextView)V.findViewById(R.id.totalv);
         formulario = (LinearLayout)V.findViewById(R.id.layout_formulario);
 
+        if(menuActivity.prefs==null){
+            menuActivity.prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            menuActivity.editor = prefs.edit();
+        }
 
 
-        if(prefs.contains("mesa-"+String.valueOf(ID))){
+        if(menuActivity.prefs.contains("mesa-"+String.valueOf(ID))){
             try{
-                JO_datoscammpos = new JSONObject(prefs.getString("mesa-"+String.valueOf(ID),""));
+                JO_datoscammpos = new JSONObject(menuActivity.prefs.getString("mesa-"+String.valueOf(ID),""));
                 ttotalvot.setText(JO_datoscammpos.getString("ttotalvot"));
                 tpetro.setText(JO_datoscammpos.getString("tpetro"));
                 tvotblanco.setText(JO_datoscammpos.getString("tvotblanco"));
@@ -166,10 +184,10 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
         }
 
 
-        if(prefs.contains(votacionActivity.mesasvotadasString)){
+        if(menuActivity.prefs.contains(votacionActivity.mesasvotadasString)){
             try {
                 mesasvotadas = new JSONArray(
-                        prefs.getString(votacionActivity.mesasvotadasString,"")
+                        menuActivity.prefs.getString(votacionActivity.mesasvotadasString,"")
                 );
 
                 for(int i=0;i<mesasvotadas.length();i++){
@@ -411,6 +429,7 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
 
 
 
+
         if(id==R.id.t_btndatos){
             DD = new Dialog(getContext());
             DD= confirmar_envio_mesa();
@@ -478,7 +497,6 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
         String stfajardo=tfajardo.getText().toString();
         String stvmorales=tvmorales.getText().toString();
         String stvargas=tvargas.getText().toString();
-
         String stblanco=tblanco.getText().toString();
         String stnulos=tnulos.getText().toString();
         String stnomarcados=tnomarcados.getText().toString();
@@ -491,9 +509,6 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
 
         JSONObject JO = new JSONObject();
         try {
-
-
-
 
             String query = "{" +
                     "  \"result\": {" +
@@ -517,8 +532,13 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
                     "    \"image\": \""+IMAGEN_URL+"\"" +
                     "  }" +
                     "}";
-
             JO = new JSONObject(query);
+
+
+
+
+
+
             Log.i("anomalia-query",JO.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -541,6 +561,32 @@ public class mesaFragment extends Fragment implements View.OnClickListener, Resp
         };
 
         Peticiones.hacerPeticion(getActivity(), JOA);
+
+        try{
+
+            HashMap<String, Object> result = new HashMap<>();
+            result.put("id_mesa",ID);
+            result.put("nombre_mesa",NOMBRE_MESA);
+
+            result.put("totalvotos",ttotalvotos );
+            result.put("tpetro",stpetro);
+            result.put("tvotblanco",stvotblanco);
+            result.put("tivanduque",stivanduque);
+            result.put("thumberto",sthumberto);
+            result.put("ttrujillo",sttrujillo);
+            result.put("tfajardo",stfajardo);
+            result.put("tvmorales",stvmorales);
+            result.put("tvargas",stvargas);
+            result.put("tblanco",stblanco);
+            result.put("tnulos",stnulos);
+            result.put("tnomarcados",stnomarcados);
+            result.put("imagen",IMAGEN_URL);
+
+            mDatabase.child("/votacion").child("/"+ estaticos.cedula).child("/"+NOMBRE_MESA).setValue(result);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 

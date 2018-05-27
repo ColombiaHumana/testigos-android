@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ public class forgorActivity extends AppCompatActivity implements View.OnClickLis
     TextView mesaje;
 
     private FirebaseAnalytics mFirebaseAnalytics;
+    boolean back=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,18 +54,28 @@ public class forgorActivity extends AppCompatActivity implements View.OnClickLis
                     "{ \"password_reset\":{ \"email\":\""+email.getText().toString()+"\" } }"
             );
 
-
             JsonObjectRequest JOA = new JsonObjectRequest(
                     Request.Method.POST,
                     URL,
                     jsonBody,
                     this, this
             );
-
+            back=false;
             Peticiones.hacerPeticion(this, JOA);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == android.R.id.home){
+            if(back){
+                finish();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -73,6 +85,7 @@ public class forgorActivity extends AppCompatActivity implements View.OnClickLis
             Bundle params = new Bundle();
             params.putInt("correos", 1);
             mFirebaseAnalytics.logEvent("correos_enviados", params);
+
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Se ha enviado un correo de recuperación a tu cuenta.")
@@ -84,13 +97,22 @@ public class forgorActivity extends AppCompatActivity implements View.OnClickLis
                     });
             AlertDialog alert = builder.create();
             alert.show();
+            back=true;
         }
 
     }
 
     @Override
+    public void finish() {
+        if(back){
+            super.finish();
+        }
+    }
+
+    @Override
     public void onErrorResponse(VolleyError error) {
         mesaje.setVisibility(View.VISIBLE);
+        back=true;
         error.printStackTrace();
     }
 }

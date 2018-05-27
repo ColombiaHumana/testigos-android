@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,7 +27,11 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +39,7 @@ import org.json.JSONObject;
 import es.dmoral.toasty.Toasty;
 import petro.presidencia.votacion.subactividades.guiaActivity;
 import petro.presidencia.votacion.utils.Peticiones;
+import votacion.presidencia.petro.testigoscolombiahumana.BuildConfig;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 public class loginActivity extends AppCompatActivity implements com.android.volley.Response.Listener<JSONObject>, com.android.volley.Response.ErrorListener {
@@ -54,6 +61,7 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
     TextView forgot;
 
     private FirebaseAnalytics mFirebaseAnalytics;
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +117,35 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
     @Override
     protected void onStart() {
         super.onStart();
+
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .build();
+        mFirebaseRemoteConfig.setConfigSettings(configSettings);
+
+        if(mFirebaseRemoteConfig!=null){
+            mFirebaseRemoteConfig.fetch()
+                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                mFirebaseRemoteConfig.activateFetched();
+                                long ultimaV = Long.parseLong(mFirebaseRemoteConfig.getString("androidAPK"));
+                                if(BuildConfig.VERSION_CODE<ultimaV){
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=petro.presidencia.votacion")));
+                                    Toasty.info(getApplicationContext(),"Hay una versión mas reciente de la aplicación. ACTUALIZA LA APLICACIÓN",Toast.LENGTH_LONG).show();
+                                    editor.clear().apply();
+                                    finish();
+                                }
+                            }
+                        }
+                    });
+
+        }
+
+
+
+
 
 
 
@@ -246,7 +283,7 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
                 editor.putString("token",token);
                 editor.apply();
                 startActivity(new Intent(this, menuActivity.class));
-                finish();
+
 
             }else{
                 Toasty.error(this,"Contraseña o Email inválido", Toast.LENGTH_SHORT).show();
@@ -257,6 +294,7 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
             passwordcampo.setText("");
         }
         showProgress(false);
+        finish();
     }
 
     @Override

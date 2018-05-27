@@ -29,6 +29,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -49,6 +51,7 @@ import petro.presidencia.votacion.subactividades.asistenciaActivity;
 import petro.presidencia.votacion.subactividades.guiaActivity;
 import petro.presidencia.votacion.subactividades.votacionActivity;
 import petro.presidencia.votacion.utils.Peticiones;
+import petro.presidencia.votacion.utils.estaticos;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 public class menuActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
@@ -69,7 +72,10 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
 
     AlertDialog dialogoCorreo;
 
-    String cedula;
+    DatabaseReference mDatabase;
+
+
+    boolean es_data_guardada=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +88,8 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
         setSupportActionBar(toolbar);
 
         setTitle("PETRO");
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         guias = (ImageView) findViewById(R.id.guias);
         anomalias = (ImageView) findViewById(R.id.anomalias);
@@ -96,6 +104,7 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
 
         if (prefs.contains("user")) {
             try {
+                es_data_guardada=true;
                 onResponse(new JSONObject(prefs.getString("user", "")));
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -186,51 +195,64 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
                     }
 
                 }
+                estaticos.cedula = String.valueOf(response.getJSONObject("user").getInt("cedula"));
 
-                if (prefs.getBoolean("dataenviada", false)) {
-
-                    String departamento = response.getJSONObject("user").getJSONObject("department").getString("name");
-                    String municipio = response.getJSONObject("user").getJSONObject("municipality").getString("name");
-                    String puesto = response.getJSONObject("user").getJSONObject("post").getString("name");
-                    String escoordinador = response.getJSONObject("user").getBoolean("coordinator") ? "coordinador" : "testigo";
-
-                    departamento = departamento.replace(" ", "-");
-                    municipio = municipio.replace(" ", "-");
-                    puesto = puesto.replace(" ", "-");
+                String departamento = response.getJSONObject("user").getJSONObject("department").getString("name");
+                String municipio = response.getJSONObject("user").getJSONObject("municipality").getString("name");
+                String puesto = response.getJSONObject("user").getJSONObject("post").getString("name");
+                String escoordinador = response.getJSONObject("user").getBoolean("coordinator") ? "coordinador" : "testigo";
 
 
-                    FirebaseMessaging.getInstance().subscribeToTopic(departamento);
-                    FirebaseMessaging.getInstance().subscribeToTopic(municipio);
-                    FirebaseMessaging.getInstance().subscribeToTopic(puesto);
-                    FirebaseMessaging.getInstance().subscribeToTopic(escoordinador);
+                HashMap<String, Object> result = new HashMap<>();
+                result.put("departamento",estaticos.departamento);
+                result.put("municipio",estaticos.municipio);
+                result.put("puesto",estaticos.puesto);
+                mDatabase.child("/votacion").child("/"+ estaticos.cedula).child("/lugar").setValue(result);
 
-                    cedula = String.valueOf(response.getJSONObject("user").getInt("cedula"));
 
+                String sdepartamento = departamento.replace(" ", "-");
+                String smunicipio = municipio.replace(" ", "-");
+                String spuesto = puesto.replace(" ", "-");
+
+                FirebaseMessaging.getInstance().subscribeToTopic(sdepartamento);
+                FirebaseMessaging.getInstance().subscribeToTopic(smunicipio);
+                FirebaseMessaging.getInstance().subscribeToTopic(spuesto);
+                FirebaseMessaging.getInstance().subscribeToTopic(escoordinador);
+
+                if (!es_data_guardada) {
                     String refreshedToken = FirebaseInstanceId.getInstance().getToken();
                     if (refreshedToken != null) {
+
                         Map<String, Object> user = new HashMap<>();
                         user.put("token", refreshedToken);
 
-                        // Add a new document with a generated ID
-                        db.collection("token-usuarios").document(cedula)
+                        db.collection("token-usuarios").document(estaticos.cedula)
                                 .set(user)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.i("token", "agregado a firestore");
                                     }
-                                });
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
                     }
-
-                    mFirebaseAnalytics.setUserId(cedula);
+                    mFirebaseAnalytics.setUserId(estaticos.cedula);
                     mFirebaseAnalytics.setUserProperty("Departamento",departamento);
                     mFirebaseAnalytics.setUserProperty("Municipio",municipio);
                     mFirebaseAnalytics.setUserProperty("Puesto",puesto);
 
 
-                    editor.putBoolean("dataenviada",true);
-                    editor.apply();
                 }
+
+
+
+                estaticos.departamento=departamento;
+                estaticos.municipio = municipio;
+                estaticos.puesto = puesto;
 
             }
 
@@ -258,7 +280,7 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
         if (id == R.id.action_settings) {
             mFirebaseAnalytics.resetAnalyticsData();
 
-            db.collection("token-usuarios").document("/"+cedula).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            db.collection("token-usuarios").document("/"+estaticos.cedula).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
 
@@ -304,7 +326,7 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
 
         String URL = getResources().getString(R.string.SERVER) + "/api/user/email";
         JsonObjectRequest JOA = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 URL,
                 user,
                 rta, this
