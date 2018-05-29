@@ -195,7 +195,10 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
                     }
 
                 }
-                estaticos.cedula = String.valueOf(response.getJSONObject("user").getInt("cedula"));
+
+
+                String ccedula = String.valueOf(response.getJSONObject("user").getInt("cedula"));
+                estaticos.cedula = ccedula;
 
                 String departamento = response.getJSONObject("user").getJSONObject("department").getString("name");
                 String municipio = response.getJSONObject("user").getJSONObject("municipality").getString("name");
