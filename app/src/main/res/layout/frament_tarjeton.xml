@@ -29,6 +29,56 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        android:background="@color/gris_seleccion"
+                        >
+
+                        <TextView
+                            android:text="Número de mesa:"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:paddingLeft="20dp"
+                            android:layout_weight="70"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="30"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="2"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/num_mesa"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                    </LinearLayout>
+
+
+
+
+
+
+
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
@@ -67,7 +117,9 @@
                                 />
 
                         </android.support.design.widget.TextInputLayout>
+
                     </LinearLayout>
+
 
                     <LinearLayout
                         android:orientation="horizontal"

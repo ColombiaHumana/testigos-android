@@ -38,6 +38,7 @@ import org.json.JSONObject;
 
 import es.dmoral.toasty.Toasty;
 import petro.presidencia.votacion.subactividades.guiaActivity;
+import petro.presidencia.votacion.subactividades.noti.noticiasActivity;
 import petro.presidencia.votacion.utils.Peticiones;
 import votacion.presidencia.petro.testigoscolombiahumana.BuildConfig;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
@@ -140,7 +141,6 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
                             }
                         }
                     });
-
         }
 
 
@@ -156,9 +156,11 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
         }
     }
     private static final int MENU_ITEM_ITEM1 = 1;
+    private static final int MENU_ITEM_ITEM_NOTICIAS = 2;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Guías");
+        menu.add(Menu.NONE, MENU_ITEM_ITEM_NOTICIAS, Menu.NONE, "Noticias");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -169,6 +171,9 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
                 startActivity(new Intent(this,guiaActivity.class));
                 return true;
 
+            case MENU_ITEM_ITEM_NOTICIAS:
+                startActivity(new Intent(this,noticiasActivity.class));
+                return true;
             default:
                 return false;
         }

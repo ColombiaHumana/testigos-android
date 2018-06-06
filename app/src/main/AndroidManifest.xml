@@ -51,10 +51,13 @@
             android:name="petro.presidencia.votacion.subactividades.asistenciaActivity"
             android:parentActivityName="petro.presidencia.votacion.menuActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="petro.presidencia.votacion.forgorActivity"
+        <activity
+            android:name="petro.presidencia.votacion.forgorActivity"
             android:parentActivityName="petro.presidencia.votacion.menuActivity"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name="petro.presidencia.votacion.subactividades.noti.noticiasActivity" />
+        <activity android:name="petro.presidencia.votacion.subactividades.noti.notiActivity"
+            android:parentActivityName="petro.presidencia.votacion.subactividades.noti.noticiasActivity" />
     </application>
 
 </manifest>
