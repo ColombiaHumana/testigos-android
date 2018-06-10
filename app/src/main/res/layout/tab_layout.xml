@@ -3,6 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <ProgressBar
+        android:id="@+id/tab_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:padding="100dp"
+        android:visibility="gone" />
+
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +27,7 @@
             android:layout_height="wrap_content"
             app:tabSelectedTextColor="@color/color_principal"
             app:tabTextColor="@color/color_principal"
-            app:tabMode="scrollable"
+            app:tabMode="fixed"
 
             app:tabGravity="fill"/>
     </android.support.design.widget.AppBarLayout>

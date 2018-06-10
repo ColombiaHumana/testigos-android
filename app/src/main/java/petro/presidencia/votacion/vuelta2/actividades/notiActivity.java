@@ -1,4 +1,4 @@
-package petro.presidencia.votacion.subactividades.noti;
+package petro.presidencia.votacion.vuelta2.actividades;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.webkit.WebView;
 
 import org.json.JSONObject;
 
+import petro.presidencia.votacion.utils.estaticos;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 public class notiActivity extends AppCompatActivity {
@@ -33,6 +34,9 @@ public class notiActivity extends AppCompatActivity {
         WB.getSettings().setJavaScriptEnabled(true);
         WB.loadDataWithBaseURL("", contenido, "text/html", "UTF-8", "");
 
+        Bundle b=new Bundle();
+        b.putString("titulo","titulo");
+        estaticos.fanaly.logEvent("noticia",b);
     }
 
 

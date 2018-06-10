@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fefefe"
-    tools:context="petro.presidencia.votacion.subactividades.guiaActivity">
+    tools:context="petro.presidencia.votacion.vuelta2.actividades.guiaActivity">
     <ImageView
         android:id="@+id/imagenban"
         android:adjustViewBounds="true"

@@ -1,4 +1,4 @@
-package petro.presidencia.votacion.subactividades;
+package petro.presidencia.votacion.vuelta2.actividades;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;

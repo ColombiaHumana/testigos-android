@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#622066</color>
+    <color name="morado_claro">#7535B9</color>
+    <color name="morado_oscuro">#4C2A6E</color>
+
+    <color name="colorPrimary">#4C2A6E</color>
     <color name="colorPrimaryDark">#622066</color>
     <color name="colorAccent">#622066</color>
     <color name="blanco">#fff</color>

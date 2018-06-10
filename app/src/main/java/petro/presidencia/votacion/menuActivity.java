@@ -40,10 +40,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import es.dmoral.toasty.Toasty;
-import petro.presidencia.votacion.subactividades.anomaliasActivity;
+import petro.presidencia.votacion.vuelta2.actividades.testigos.anomaliasActivity;
 import petro.presidencia.votacion.subactividades.asistenciaActivity;
-import petro.presidencia.votacion.subactividades.guiaActivity;
-import petro.presidencia.votacion.subactividades.noti.noticiasActivity;
+import petro.presidencia.votacion.vuelta2.actividades.guiaActivity;
+import petro.presidencia.votacion.vuelta2.actividades.noticiasActivity;
 import petro.presidencia.votacion.subactividades.votacionActivity;
 import petro.presidencia.votacion.utils.Peticiones;
 import petro.presidencia.votacion.utils.estaticos;

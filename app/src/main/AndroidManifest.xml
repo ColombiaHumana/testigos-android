@@ -23,12 +23,7 @@
             android:name="petro.presidencia.votacion.loginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="petro.presidencia.votacion.menuActivity"
@@ -36,11 +31,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="petro.presidencia.votacion.subactividades.guiaActivity"
+            android:name="petro.presidencia.votacion.vuelta2.actividades.guiaActivity"
             android:parentActivityName="petro.presidencia.votacion.menuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="petro.presidencia.votacion.subactividades.anomaliasActivity"
+            android:name="petro.presidencia.votacion.vuelta2.actividades.testigos.anomaliasActivity"
             android:parentActivityName="petro.presidencia.votacion.menuActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -52,12 +47,22 @@
             android:parentActivityName="petro.presidencia.votacion.menuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="petro.presidencia.votacion.forgorActivity"
+            android:name="petro.presidencia.votacion.vuelta2.actividades.forgorActivity"
             android:parentActivityName="petro.presidencia.votacion.menuActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="petro.presidencia.votacion.subactividades.noti.noticiasActivity" />
-        <activity android:name="petro.presidencia.votacion.subactividades.noti.notiActivity"
-            android:parentActivityName="petro.presidencia.votacion.subactividades.noti.noticiasActivity" />
+        <activity android:name="petro.presidencia.votacion.vuelta2.actividades.noticiasActivity" />
+        <activity
+            android:name="petro.presidencia.votacion.vuelta2.actividades.notiActivity"
+            android:parentActivityName="petro.presidencia.votacion.vuelta2.actividades.noticiasActivity" />
+        <activity android:name="petro.presidencia.votacion.vuelta2.principalActivity">
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

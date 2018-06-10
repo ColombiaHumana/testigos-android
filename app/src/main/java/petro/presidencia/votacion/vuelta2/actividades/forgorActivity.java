@@ -1,4 +1,4 @@
-package petro.presidencia.votacion;
+package petro.presidencia.votacion.vuelta2.actividades;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import petro.presidencia.votacion.utils.Peticiones;
+import petro.presidencia.votacion.utils.estaticos;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 public class forgorActivity extends AppCompatActivity implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
@@ -98,6 +99,9 @@ public class forgorActivity extends AppCompatActivity implements View.OnClickLis
             AlertDialog alert = builder.create();
             alert.show();
             back=true;
+
+            Bundle b  = new Bundle();
+            estaticos.fanaly.logEvent("recuperar",b);
         }
 
     }

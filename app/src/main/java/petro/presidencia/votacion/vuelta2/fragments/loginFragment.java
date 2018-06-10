@@ -1,87 +1,134 @@
-package petro.presidencia.votacion;
+package petro.presidencia.votacion.vuelta2.fragments;
+
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import es.dmoral.toasty.Toasty;
+import petro.presidencia.votacion.utils.Peticiones;
+import petro.presidencia.votacion.utils.estaticos;
 import petro.presidencia.votacion.vuelta2.actividades.forgorActivity;
 import petro.presidencia.votacion.vuelta2.actividades.guiaActivity;
-import petro.presidencia.votacion.vuelta2.actividades.noticiasActivity;
-import petro.presidencia.votacion.utils.Peticiones;
-
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
-public class loginActivity extends AppCompatActivity implements com.android.volley.Response.Listener<JSONObject>, com.android.volley.Response.ErrorListener {
+
+public class loginFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
 
 
+    public loginFragment() {
 
+    }
 
-
-    private EditText cc_campo;
-    private EditText passwordcampo;
     private View mProgressView;
     private View mLoginFormView;
 
-
-    String TAG = "login";
-
-    SharedPreferences.Editor editor;
-    SharedPreferences prefs;
-    static String MY_PREFS_NAME = "login";
+    private EditText cc_campo;
+    private EditText passwordcampo;
     Button submit;
 
-    TextView forgot;
 
-    private FirebaseAnalytics mFirebaseAnalytics;
-    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    Context CTT;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        mFirebaseAnalytics.setCurrentScreen(this, "Login", null /* class override */);
-        setContentView(R.layout.activity_login);
-        setTitle("");
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        CTT=context;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View V = inflater.inflate(R.layout.fragment_login, container, false);
+        getActivity().setTitle("Testigos");
+
+        mLoginFormView = V.findViewById(R.id.login_form);
+        mProgressView = V.findViewById(R.id.login_progress);
+
+        cc_campo = V.findViewById(R.id.input_cedula);
+        passwordcampo = V.findViewById(R.id.input_password);
+        submit = V.findViewById(R.id.login);
+        return V;
+    }
 
 
-        cc_campo = (EditText)findViewById(R.id.cccampo);
-        forgot = (TextView)findViewById(R.id.pass_forget);
 
-        forgot.setOnClickListener(new View.OnClickListener() {
+    void abrir_pagina_registrate(){
+        String url = "https://petro.com.co/ingreso-testigos/";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        view.findViewById(R.id.boton_guia).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),forgorActivity.class));
+                startActivity(new Intent(getActivity(),guiaActivity.class));
             }
         });
 
-        passwordcampo = (EditText) findViewById(R.id.password);
+
+        view.findViewById(R.id.texto_recuperar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),forgorActivity.class));
+            }
+        });
+
+        view.findViewById(R.id.boton_registrate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrir_pagina_registrate();
+            }
+        });
+
+        view.findViewById(R.id.texto_registrate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrir_pagina_registrate();
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attemptLogin();
+            }
+        });
+
         passwordcampo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -93,61 +140,6 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-
-        prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        editor = prefs.edit();
-
-        submit =(Button) findViewById(R.id.sesion);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attemptLogin();
-            }
-        });
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .build();
-        mFirebaseRemoteConfig.setConfigSettings(configSettings);
-
-
-        if (prefs.getString("token", null) != null) {
-            startActivity(new Intent(this, menuActivity.class));
-            finish();
-        }
-    }
-
-
-    private static final int MENU_ITEM_ITEM1 = 1;
-    private static final int MENU_ITEM_ITEM_NOTICIAS = 2;
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Guías");
-        menu.add(Menu.NONE, MENU_ITEM_ITEM_NOTICIAS, Menu.NONE, "Noticias");
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case MENU_ITEM_ITEM1:
-                startActivity(new Intent(this,guiaActivity.class));
-                return true;
-
-            case MENU_ITEM_ITEM_NOTICIAS:
-                startActivity(new Intent(this,noticiasActivity.class));
-                return true;
-            default:
-                return false;
-        }
     }
 
     private void attemptLogin() {
@@ -198,15 +190,12 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
                     this, this
             );
 
-            Peticiones.hacerPeticion(this, JOA);
+            Peticiones.hacerPeticion(CTT, JOA);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -256,29 +245,31 @@ public class loginActivity extends AppCompatActivity implements com.android.voll
         try{
             if(response.has("jwt")){
                 String token = response.getString("jwt");
-                editor.putString("token",token);
-                editor.apply();
-                startActivity(new Intent(this, menuActivity.class));
+                estaticos.editor.putString("token",token);
+                estaticos.editor.apply();
+                Toasty.success(CTT,"Bienvenido",Toast.LENGTH_SHORT).show();
 
-
-            }else{
-                Toasty.error(this,"Contraseña o Email inválido", Toast.LENGTH_SHORT).show();
             }
 
         }catch (Exception e){
-            Toasty.error(this,"Error en el ingreso",Toast.LENGTH_SHORT).show();
-            passwordcampo.setText("");
+            e.printStackTrace();
         }
         showProgress(false);
-        finish();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "normal");
+        estaticos.fanaly.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        showProgress(false);
-        Toasty.error(this, "Verifica tu conexion a internet o tu cédula y contraseña", Toast.LENGTH_SHORT).show();
         error.printStackTrace();
+        showProgress(false);
+        Toasty.error(CTT, "Verifica tu conexion a internet o tu cédula y contraseña", Toast.LENGTH_SHORT).show();
+        passwordcampo.setText("");
     }
+
+
 
 
 }

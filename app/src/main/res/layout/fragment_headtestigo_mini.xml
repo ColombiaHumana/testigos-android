@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        >
+
+        <TextView
+            android:id="@+id/h_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NOMBRE PERSONA"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/h_puesto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="puesto Votacion" />
+    </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/reportar_anomalia"
+            android:layout_weight=".5"
+            android:text="Reportar anomalías"
+            android:textSize="10dp"
+            android:background="@drawable/boton_borde_noderecho"
+            android:textColor="@color/color_principal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_weight=".5"
+            android:text="Llamar a coordnador"
+            android:textColor="@color/color_principal"
+            android:textSize="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

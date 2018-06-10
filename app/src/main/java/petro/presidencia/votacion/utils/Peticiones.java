@@ -22,8 +22,8 @@ public class Peticiones {
                 rq = Volley.newRequestQueue(ct);
             }
 
-            Log.i("Peticion","URL: "+peticion.getUrl());
 
+            Log.i("Peticion","URL: "+peticion.getUrl());
 
 
             rq.add(peticion);

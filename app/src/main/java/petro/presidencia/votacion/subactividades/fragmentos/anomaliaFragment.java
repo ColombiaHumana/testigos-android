@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 
 import org.json.JSONObject;
 
-import petro.presidencia.votacion.subactividades.anomaliasActivity;
+import petro.presidencia.votacion.vuelta2.actividades.testigos.anomaliasActivity;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 import static petro.presidencia.votacion.menuActivity.editor;
