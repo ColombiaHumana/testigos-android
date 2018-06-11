@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="petro.presidencia.votacion.subactividades.votacionActivity"
+    tools:context="petro.presidencia.votacion.vuelta2.actividades.testigos.votacionActivity"
 
 
     >

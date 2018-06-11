@@ -43,8 +43,7 @@ import es.dmoral.toasty.Toasty;
 import petro.presidencia.votacion.vuelta2.actividades.testigos.anomaliasActivity;
 import petro.presidencia.votacion.subactividades.asistenciaActivity;
 import petro.presidencia.votacion.vuelta2.actividades.guiaActivity;
-import petro.presidencia.votacion.vuelta2.actividades.noticiasActivity;
-import petro.presidencia.votacion.subactividades.votacionActivity;
+import petro.presidencia.votacion.vuelta2.actividades.testigos.votacionActivity;
 import petro.presidencia.votacion.utils.Peticiones;
 import petro.presidencia.votacion.utils.estaticos;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
@@ -291,8 +290,6 @@ public class menuActivity extends AppCompatActivity implements Response.Listener
             editor.clear().apply();
             finish();
             return true;
-        }else if(id == R.id.action_noticias){
-            startActivity(new Intent(this,noticiasActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

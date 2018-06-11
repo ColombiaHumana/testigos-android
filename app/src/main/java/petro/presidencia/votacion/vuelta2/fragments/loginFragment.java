@@ -38,6 +38,7 @@ import petro.presidencia.votacion.utils.Peticiones;
 import petro.presidencia.votacion.utils.estaticos;
 import petro.presidencia.votacion.vuelta2.actividades.forgorActivity;
 import petro.presidencia.votacion.vuelta2.actividades.guiaActivity;
+import petro.presidencia.votacion.vuelta2.principalActivity;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 
@@ -56,12 +57,12 @@ public class loginFragment extends Fragment implements Response.Listener<JSONObj
     Button submit;
 
 
-    Context CTT;
+    principalActivity CTT;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        CTT=context;
+        CTT=(principalActivity)context;
     }
 
     @Override
@@ -248,7 +249,7 @@ public class loginFragment extends Fragment implements Response.Listener<JSONObj
                 estaticos.editor.putString("token",token);
                 estaticos.editor.apply();
                 Toasty.success(CTT,"Bienvenido",Toast.LENGTH_SHORT).show();
-
+                CTT.setLOGUEADO();
             }
 
         }catch (Exception e){

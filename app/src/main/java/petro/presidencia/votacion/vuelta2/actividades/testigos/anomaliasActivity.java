@@ -34,120 +34,44 @@ import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 import petro.presidencia.votacion.menuActivity;
-import petro.presidencia.votacion.subactividades.fragmentos.anomaliaFragment;
 import petro.presidencia.votacion.utils.Peticiones;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 public class anomaliasActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
-
     Dialog DD;
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    denuncuasAdapter adapter;
-
+    RadioButton jurados_votacion, limitaciones_al_derecho, censo_extracontemporaneo;
+    RadioButton no_destruccion, errores_en_el_conteo, errores_e14;
 
     JSONArray MESAS;
     String  mensajes = "";
     String tipoanomalia="";
     int id_anomalia = 0;
 
-    FirebaseAnalytics mFirebaseAnalytics;
 
 
+    int ID_MESA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tab_layout);
+        setContentView(R.layout.fragment_anomalias);
         setTitle("Anomalías");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        mFirebaseAnalytics.setCurrentScreen(this, "Anomalias", null /* class override */);
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
-
-        menuActivity.prefs = getSharedPreferences(menuActivity.MY_PREFS_NAME, MODE_PRIVATE);
+        jurados_votacion = (RadioButton)findViewById(R.id.jurados_votacion);
+        limitaciones_al_derecho = (RadioButton)findViewById(R.id.limitaciones_al_derecho);
+        censo_extracontemporaneo = (RadioButton)findViewById(R.id.censo_extracontemporaneo);
+        no_destruccion = (RadioButton)findViewById(R.id.no_destruccion);
+        errores_en_el_conteo = (RadioButton)findViewById(R.id.errores_en_el_conteo);
+        errores_e14 = (RadioButton)findViewById(R.id.errores_e14);
 
     }
-    int numTABS=0;
 
 
-    private void setupViewPager(ViewPager viewPager) {
-
-        adapter = new denuncuasAdapter(getSupportFragmentManager());
-
-        //adapter.addFragment(new anomaliaFragment(), "Mesa 1");
-        //adapter.addFragment(new anomaliaFragment(), "Mesa 2");
-        //adapter.addFragment(new anomaliaFragment(), "Mesa 3");
-
-        try {
-            String user = menuActivity.prefs.getString("user", "");
-            Log.i("user-pref", user);
-            JSONArray JARRAY = new JSONObject(user).getJSONObject("user").getJSONArray("tables");
-
-            for (int i = 0; i < JARRAY.length(); i++) {
-                JSONObject JO = JARRAY.getJSONObject(i);
-                int ID = JO.getInt("id");
-                String mesanombre = JO.getString("name");
-                anomaliaFragment AF = anomaliaFragment.getAnomaliaFragment(ID);
-
-                numTABS++;
-                adapter.addFragment(AF, mesanombre);
-            }
-
-            tabLayout.setTabMode(numTABS>3?TabLayout.MODE_SCROLLABLE:TabLayout.MODE_FIXED);
 
 
-        } catch (Exception e) {
-            Toasty.error(this, "Error: Deslogueate y vuelvete a loguear en la aplicacion", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
-
-        viewPager.setAdapter(adapter);
-    }
-
-
-    class denuncuasAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public denuncuasAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        adapter.getItem(viewPager.getCurrentItem()).onActivityResult(requestCode, resultCode, data);
-    }
 
     View anomaliaView;
 
@@ -158,7 +82,6 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
 
         switch (id) {
             case R.id.jurados_votacion:
-
                 mensajes = "Está a punto de reportar la suplantación de jurados de votación o la presencia de jurados no registrados en la mesa elegida";
                 id_anomalia = 1;
                 break;
@@ -212,14 +135,13 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
                 .create();
     }
 
+
     public void enviar_anomalia(){
 
 
-        anomaliaFragment F = (anomaliaFragment) adapter.getItem(viewPager.getCurrentItem());
-
         JSONObject JO = new JSONObject();
         try {
-            String query = "{\"report\": {\"issue_id\": " + id_anomalia + " ,\"table_id\": " + F.ID + "}}";
+            String query = "{\"report\": {\"issue_id\": " + id_anomalia + " ,\"table_id\": " + ID_MESA + "}}";
 
             JO = new JSONObject(query);
             Log.i("anomalia-query",JO.toString());

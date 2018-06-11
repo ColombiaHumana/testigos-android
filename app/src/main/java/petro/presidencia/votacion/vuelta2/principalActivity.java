@@ -1,5 +1,6 @@
 package petro.presidencia.votacion.vuelta2;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -48,6 +49,7 @@ import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 
 import static petro.presidencia.votacion.utils.estaticos.MY_PREFS_NAME;
+import static petro.presidencia.votacion.utils.estaticos.editor;
 
 public class principalActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
@@ -62,6 +64,7 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
     private Fragment ftestigos;
 
     ProgressBar progressBar;
+    boolean LOGUEADO=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,34 +119,36 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
         if(estaticos.prefs.contains("token")){
             estaticos.TOKEN=estaticos.prefs.getString("token","");
             if(!estaticos.TOKEN.equals("")){
-                String URL = getResources().getString(R.string.SERVER) + "/api/user";
-
-                JsonObjectRequest JOA = new JsonObjectRequest(
-                        Request.Method.GET,
-                        URL,
-                        null,
-                        this, this
-                ) {
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("content-type", "application/json");
-                        params.put("Authorization", estaticos.TOKEN);
-                        return params;
-                    }
-                };
-
-                Peticiones.hacerPeticion(this, JOA);
+                pedir_informacion();
             }
         }else{
             this.ftestigos = new loginFragment();
             setupViewPager();
-
         }
 
 
+    }
 
+    void pedir_informacion(){
+        LOGUEADO=true;
+        String URL = getResources().getString(R.string.SERVER) + "/api/user";
 
+        JsonObjectRequest JOA = new JsonObjectRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                this, this
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("content-type", "application/json");
+                params.put("Authorization", estaticos.TOKEN);
+                return params;
+            }
+        };
+
+        Peticiones.hacerPeticion(this, JOA);
     }
 
 
@@ -153,6 +158,8 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
         try{
             estaticos.USER = response.getJSONObject("user").toString();
             estaticos.cedula = String.valueOf(response.getJSONObject("user").getInt("cedula"));
+
+            editor.putString("user",estaticos.USER).apply();
 
             String ccedula = String.valueOf(response.getJSONObject("user").getInt("cedula"));
             String departamento = response.getJSONObject("user").getJSONObject("department").getString("name");
@@ -179,6 +186,7 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
 
             if(response.getJSONObject("user").getBoolean("coordinator")){
 
+                Toast.makeText(this,"no esta definido cuando es coordinador",Toast.LENGTH_SHORT).show();
 
             }else{
                 ftestigos = new testigoFragment();
@@ -212,14 +220,23 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    public void setLOGUEADO(){
+        pedir_informacion();
+        adapter.mFragmentManager.beginTransaction().remove(ftestigos).commit();
+        ftestigos=new testigoFragment();
+        adapter.mFragmentList.set(1,ftestigos);
+        adapter.notifyDataSetChanged();
+    }
+
 
 
     class denuncuasAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
+        public final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
+        public FragmentManager mFragmentManager;
 
-        public denuncuasAdapter(FragmentManager manager) {
-            super(manager);
+        public denuncuasAdapter(FragmentManager manager) { super(manager);
+            mFragmentManager=manager;
         }
 
         @Override
@@ -228,9 +245,14 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
         }
 
         @Override
-        public int getCount() {
-            return mFragmentList.size();
+        public int getItemPosition(Object object) {
+            if (object instanceof loginFragment && ftestigos instanceof testigoFragment)
+                return POSITION_NONE;
+            return POSITION_UNCHANGED;
         }
+
+        @Override
+        public int getCount() { return mFragmentList.size();}
 
         public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);

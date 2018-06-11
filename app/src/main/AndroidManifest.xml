@@ -20,12 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="petro.presidencia.votacion.loginActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
-        <activity
             android:name="petro.presidencia.votacion.menuActivity"
             android:label="@string/title_activity_menu"
             android:screenOrientation="portrait"
@@ -39,7 +33,7 @@
             android:parentActivityName="petro.presidencia.votacion.menuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="petro.presidencia.votacion.subactividades.votacionActivity"
+            android:name="petro.presidencia.votacion.vuelta2.actividades.testigos.votacionActivity"
             android:parentActivityName="petro.presidencia.votacion.menuActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -50,7 +44,6 @@
             android:name="petro.presidencia.votacion.vuelta2.actividades.forgorActivity"
             android:parentActivityName="petro.presidencia.votacion.menuActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="petro.presidencia.votacion.vuelta2.actividades.noticiasActivity" />
         <activity
             android:name="petro.presidencia.votacion.vuelta2.actividades.notiActivity"
             android:parentActivityName="petro.presidencia.votacion.vuelta2.actividades.noticiasActivity" />

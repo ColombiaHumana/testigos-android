@@ -37,7 +37,7 @@ import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 import petro.presidencia.votacion.menuActivity;
-import petro.presidencia.votacion.subactividades.fragmentos.anomaliaFragment;
+
 import petro.presidencia.votacion.utils.Peticiones;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 

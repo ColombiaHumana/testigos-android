@@ -1,4 +1,4 @@
-package petro.presidencia.votacion.subactividades;
+package petro.presidencia.votacion.vuelta2.actividades.testigos;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
