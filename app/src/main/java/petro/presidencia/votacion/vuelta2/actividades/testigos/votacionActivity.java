@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +24,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -33,19 +39,25 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import es.dmoral.toasty.Toasty;
+import petro.presidencia.votacion.utils.Peticiones;
 import petro.presidencia.votacion.utils.estaticos;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
-public class votacionActivity extends AppCompatActivity implements View.OnClickListener {
+public class votacionActivity extends AppCompatActivity implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
 
     private static final int selectPhoto = 100;
     EditText ttotalvot;
     EditText tpetro, tivanduque;
     EditText tblanco, tnulos, tnomarcados;
+    EditText te11,tvurna,tvincinerados;
     TextView votos_validos, total_votos;
     View formulario;
 
@@ -69,7 +81,7 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
     int ID;
     String NOMBRE_MESA;
 
-    TextView tmesanme,tpuestotexto;
+    TextView tmesanme, tpuestotexto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +97,17 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
         storageReference = storage.getReference();
         fdatabase = FirebaseDatabase.getInstance().getReference();
 
-        tmesanme = (TextView)findViewById(R.id.nummesa);
+        tmesanme = (TextView) findViewById(R.id.nummesa);
 
         textphoto = (TextView) findViewById(R.id.text_image);
         imagePhoto = (ImageView) findViewById(R.id.image);
         linear = (LinearLayout) findViewById(R.id.linear_image);
         submit = (Button) findViewById(R.id.t_btndatos);
+
+        te11  = (EditText) findViewById(R.id.t_e11);
+        tvurna  = (EditText) findViewById(R.id.t_vurna);
+        tvincinerados = (EditText) findViewById(R.id.t_vincinerados);
+
         submit.setOnClickListener(this);
         linear.setOnClickListener(this);
 
@@ -133,11 +150,12 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
         tnomarcados.addTextChangedListener(candidatos);
 
 
-        tpuestotexto = (TextView)findViewById(R.id.puestotexto);
+        tpuestotexto = (TextView) findViewById(R.id.puestotexto);
 
 
-        ID =getIntent().getIntExtra("id",0);
-        NOMBRE_MESA =getIntent().getStringExtra("name");
+        ID = getIntent().getIntExtra("id", 0);
+        NOMBRE_MESA = getIntent().getStringExtra("name");
+
         tmesanme.setText(NOMBRE_MESA);
         tpuestotexto.setText(estaticos.puesto);
         //desactivar_vista();
@@ -309,12 +327,26 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
     void subir_datos_a_servidores() {
         validar_campos();
 
+
+        int petro = Integer.parseInt(tpetro.getText().toString());
+        int ivanduque = Integer.parseInt(tivanduque.getText().toString());
+        int blanco = Integer.parseInt(tblanco.getText().toString());
+        int nulos = Integer.parseInt(tnulos.getText().toString());
+        int nomarcados = Integer.parseInt(tnomarcados.getText().toString());
+
+        int e11 = Integer.parseInt(te11.getText().toString());
+        int urna = Integer.parseInt(tvurna.getText().toString());
+        int incinerados = Integer.parseInt(tvincinerados.getText().toString());
+
         HashMap<String, Object> resultados = new HashMap<>();
-        resultados.put("petro", Integer.parseInt(tpetro.getText().toString()));
-        resultados.put("ivanduque", Integer.parseInt(tivanduque.getText().toString()));
-        resultados.put("blanco", Integer.parseInt(tblanco.getText().toString()));
-        resultados.put("nulos", Integer.parseInt(tnulos.getText().toString()));
-        resultados.put("nomarcados", Integer.parseInt(tnomarcados.getText().toString()));
+        resultados.put("petro", petro );
+        resultados.put("ivanduque", ivanduque );
+        resultados.put("blanco", blanco );
+        resultados.put("nulos", nulos );
+        resultados.put("nomarcados", nomarcados );
+        resultados.put("e11", e11 );
+        resultados.put("urna", urna);
+        resultados.put("incinerados", incinerados);
         resultados.put("imagen", IMAGEN_URL);
         resultados.put("total", total_otros);
 
@@ -325,19 +357,50 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
         resultados.put("cedula", estaticos.cedula);
 
 
-        fdatabase.child("/post_votos/" + UUID.randomUUID().toString()).setValue(resultados).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toasty.success(getApplicationContext(), "Los datos de la mesa se han subido correctamente", Toast.LENGTH_LONG).show();
-                finish();
-                DD.dismiss();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toasty.error(getApplicationContext(), "Error, inténtalo mas tarde", Toast.LENGTH_LONG).show();
-            }
-        });
+        fdatabase.child("/post_votos/" + UUID.randomUUID().toString()).setValue(resultados);
+
+
+        try {
+            String URL = getResources().getString(R.string.SERVER) + "/api/results";
+
+            final JSONObject jsonBody = new JSONObject("{\n" +
+                    "  \"round\": {\n" +
+                    "    \"table_id\": " + ID + ",\n" +
+                    "    \"votes\": {\n" +
+                    "      \"petro\": "+petro+",\n" +
+                    "      \"duque\": "+ivanduque+",\n" +
+                    "      \"blanco\": "+blanco+",\n" +
+                    "      \"nulos\": "+nulos+",\n" +
+                    "      \"no_marcados\": "+nomarcados+",\n" +
+                    "      \"total_e11\": "+e11+",\n" +
+                    "      \"total_urna\": "+urna+",\n" +
+                    "      \"total_incinerados\": "+incinerados+",\n" +
+                    "      \"total_validos\": "+total_otros+" \n" +
+                    "    },\n" +
+                    "    \"image\": \"https://pbs.twimg.com/media/DYLbFd4WkAAzB-z.jpg\"\n" +
+                    "  }\n" +
+                    "}");
+            Log.i("registro-mesa",jsonBody.toString());
+
+            JsonObjectRequest JOA = new JsonObjectRequest(
+                    Request.Method.POST,
+                    URL,
+                    jsonBody,
+                    this, this
+            ){
+                @Override
+                public Map<String, String> getHeaders() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("content-type", "application/json");
+                    params.put("Authorization", estaticos.TOKEN);
+                    return params;
+                }
+            };;
+
+            Peticiones.hacerPeticion(this, JOA);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -366,6 +429,21 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
             total_votos.setText("0");
         }
 
+        if ("".equals(te11.getText().toString())) {
+            te11.setText("0");
+        }
+
+        if ("".equals(tvurna.getText().toString())) {
+            tvurna.setText("0");
+        }
+
+        if ("".equals(tvincinerados.getText().toString())) {
+            tvincinerados.setText("0");
+        }
+
+        if ("".equals(tivanduque.getText().toString())) {
+            tivanduque.setText("0");
+        }
 
     }
 
@@ -383,5 +461,44 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
                     textphoto.setVisibility(View.GONE);
                 }
         }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            super.onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        DD.dismiss();
+        DD = datos_enviados_dialog();
+        DD.show();
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        error.printStackTrace();
+    }
+
+    public Dialog datos_enviados_dialog() {
+        return new AlertDialog.Builder(this)
+                .setTitle("¡Gracias!").setMessage("Los datos se han enviado satisfactoriamente.")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .create();
     }
 }

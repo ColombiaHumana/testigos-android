@@ -26,7 +26,7 @@
         >
 
         <TextView
-
+            android:paddingTop="15dp"
             android:id="@+id/h_nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,12 +45,14 @@
         <Button
             android:id="@+id/boton_head_llamar_coordinador"
             android:layout_gravity="bottom"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Llamar a coordinador"
             android:textAllCaps="false"
             android:background="#FFF"
             android:textColor="@color/color_principal"
-            android:textSize="10dp"
+            android:textSize="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

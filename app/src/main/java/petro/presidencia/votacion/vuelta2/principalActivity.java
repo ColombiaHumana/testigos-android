@@ -16,9 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -50,6 +52,7 @@ import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 import static petro.presidencia.votacion.utils.estaticos.MY_PREFS_NAME;
 import static petro.presidencia.votacion.utils.estaticos.editor;
+import static petro.presidencia.votacion.utils.estaticos.prefs;
 
 public class principalActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
@@ -84,7 +87,7 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
 
-
+        FirebaseMessaging.getInstance().subscribeToTopic("todos");
         estaticos.prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         estaticos.editor = estaticos.prefs.edit();
 
@@ -117,10 +120,14 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
 
 
         if(estaticos.prefs.contains("token")){
-            estaticos.TOKEN=estaticos.prefs.getString("token","");
-            if(!estaticos.TOKEN.equals("")){
-                pedir_informacion();
+
+            estaticos.TOKEN = estaticos.prefs.getString("token","");
+            try{
+                onResponse(new JSONObject(estaticos.prefs.getString("response","{}")));
+            }catch (Exception e){
+                e.printStackTrace();
             }
+
         }else{
             this.ftestigos = new loginFragment();
             setupViewPager();
@@ -159,6 +166,7 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
             estaticos.USER = response.getJSONObject("user").toString();
             estaticos.cedula = String.valueOf(response.getJSONObject("user").getInt("cedula"));
 
+            editor.putString("response",response.toString()).apply();
             editor.putString("user",estaticos.USER).apply();
 
 
@@ -189,7 +197,6 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
             FirebaseMessaging.getInstance().subscribeToTopic(escoordinador);
 
             if(response.getJSONObject("user").getBoolean("coordinator")){
-
                 Toast.makeText(this,"no esta definido cuando es coordinador",Toast.LENGTH_SHORT).show();
 
             }else{
@@ -198,13 +205,22 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
             }
         }catch (Exception e){
             e.printStackTrace();
+            editor.clear().apply();
+            finish();
         }
+
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
         error.printStackTrace();
-        Toasty.info(this,"Verifica tu conexión a internet",Toast.LENGTH_LONG).show();
+        if (error instanceof AuthFailureError) {
+            editor.clear().apply();
+            finish();
+            Toasty.info(this,"Vuelve a abrir la aplicación",Toast.LENGTH_LONG).show();
+        }else{
+            Toasty.info(this,"Verifica tu conexión a internet",Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -217,7 +233,7 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
 
         noticiasFragment nf = new noticiasFragment();
 
-        adapter.addFragment(nf, "Noticias");
+        adapter.addFragment(nf, "Información");
         adapter.addFragment(this.ftestigos, "Testigos");
 
         viewPager.setAdapter(adapter);

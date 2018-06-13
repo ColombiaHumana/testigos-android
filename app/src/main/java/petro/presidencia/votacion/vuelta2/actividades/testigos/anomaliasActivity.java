@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -193,6 +194,16 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
         Toasty.error(this,"Verifica tu conexion a internet",Toast.LENGTH_SHORT).show();
         ((RadioButton)anomaliaView).setChecked(false);
         error.printStackTrace();
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home){
+            super.onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

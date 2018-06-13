@@ -21,17 +21,31 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import es.dmoral.toasty.Toasty;
+import petro.presidencia.votacion.utils.Peticiones;
 import petro.presidencia.votacion.utils.estaticos;
 import petro.presidencia.votacion.vuelta2.fragments.minifragmentos.headtestigoMiniFragment;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
+import static petro.presidencia.votacion.utils.estaticos.editor;
 
-public class testigoFragment extends Fragment {
+
+public class testigoFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
     private static final int MENU_ITEM_LOGOUT = 1;
 
     public testigoFragment() {
@@ -42,10 +56,10 @@ public class testigoFragment extends Fragment {
     private View mProgressView;
     private View mLoginFormView;
 
-    ListView listado_mesas_asignadas;
+    ListView listado_mesas_asignadas,listado_mesas_disponibles;
 
     JSONObject dataUser;
-    JSONArray mesas;
+    JSONArray mesas,mesas_disponibles;
 
     SharedPreferences.OnSharedPreferenceChangeListener listener;
 
@@ -56,7 +70,9 @@ public class testigoFragment extends Fragment {
 
         mLoginFormView = V.findViewById(R.id.content);
         mProgressView = V.findViewById(R.id.progress);
+
         listado_mesas_asignadas = V.findViewById(R.id.listado_mesas_asignadas);
+        listado_mesas_disponibles = V.findViewById(R.id.mesas_disponibles);
 
         showProgress(true);
         cargar_data();
@@ -79,15 +95,36 @@ public class testigoFragment extends Fragment {
                             Log.i("testigoF", "Listener: " + USER);
                             cargar_data();
                             //llenar_contenido();
+                            estaticos.prefs.registerOnSharedPreferenceChangeListener(listener);
                         }
                     }
                 };
-                estaticos.prefs.registerOnSharedPreferenceChangeListener(listener);
             }
+            peticion_mesas_disponibles();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    void peticion_mesas_disponibles(){
+        String URL = getResources().getString(R.string.SERVER) + "/api/tables/";
+
+        JsonObjectRequest JOA = new JsonObjectRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                this, this
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("content-type", "application/json");
+                params.put("Authorization", estaticos.TOKEN);
+                return params;
+            }
+        };
+
+        Peticiones.hacerPeticion(getActivity().getBaseContext(), JOA);
     }
 
     void llenar_contenido() {
@@ -182,6 +219,104 @@ public class testigoFragment extends Fragment {
         //listado_mesas_asignadas.divider
     }
 
+
+
+    @Override
+    public void onResponse(JSONObject response) {
+        try{
+            mesas_disponibles = response.getJSONArray("mesas");
+
+            mesadisponibleAdapter mda=new mesadisponibleAdapter(getActivity().getBaseContext());
+            listado_mesas_disponibles.setAdapter(mda);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        error.printStackTrace();
+        if (error instanceof AuthFailureError) {
+            editor.clear().apply();
+            getActivity().finish();
+            Toasty.info(getActivity().getBaseContext(),"Vuelve a abrir la aplicación", Toast.LENGTH_LONG).show();
+        }else{
+            Toasty.info(getActivity().getBaseContext(),"Verifica tu conexión a internet",Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    class mesadisponibleAdapter extends BaseAdapter{
+
+        Context ctt;
+        public mesadisponibleAdapter(Context ct){
+            this.ctt=ct;
+        }
+
+
+        @Override
+        public int getCount() {
+            return mesas_disponibles.length();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(ctt).
+                        inflate(R.layout.item_mesa_disponible, parent, false);
+            }
+            TextView tx =(TextView)convertView.findViewById(R.id.nombre_mesa);
+            Button registrar_voto=(Button) convertView.findViewById(R.id.btn_enviar_resultados);
+            Button anomalias= (Button)convertView.findViewById(R.id.btn_enviar_anomalia);
+            try{
+                final String nombre = mesas_disponibles.getJSONObject(position).getString("nombre");
+                final int id = mesas_disponibles.getJSONObject(position).getInt("id");
+
+                tx.setText(nombre);
+
+                registrar_voto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i =new Intent(getActivity(),votacionActivity.class);
+                        i.putExtra("id",id);
+                        i.putExtra("name",nombre);
+                        startActivity(i);
+                    }
+                });
+
+                anomalias.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i =new Intent(getActivity(),anomaliasActivity.class);
+                        i.putExtra("id",id);
+                        i.putExtra("name",nombre);
+                        startActivity(i);
+                    }
+                });
+
+
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return convertView;
+        }
+    }
+
     class mesaAdapter extends BaseAdapter{
 
         Context ctt;
@@ -250,7 +385,6 @@ public class testigoFragment extends Fragment {
             }catch (Exception e){
                 e.printStackTrace();
             }
-
             return convertView;
         }
     }

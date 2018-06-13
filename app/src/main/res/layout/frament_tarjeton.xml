@@ -101,6 +101,131 @@
                         >
 
                         <TextView
+                            android:text="Total votos E-11"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right"
+                            android:paddingRight="20dp"
+                            android:textSize="16dp"
+                            android:layout_weight="70"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="30"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_e11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Total votos en urna"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right"
+                            android:paddingRight="20dp"
+                            android:textSize="16dp"
+                            android:layout_weight="70"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="30"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_vurna"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:weightSum="100"
+                        >
+
+                        <TextView
+                            android:text="Total votos incinerados"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right"
+                            android:paddingRight="20dp"
+                            android:textSize="16dp"
+                            android:layout_weight="70"
+                            />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_weight="30"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+
+                            <EditText
+                                android:maxLength="3"
+                                android:background="@drawable/edittext_borde"
+                                android:id="@+id/t_vincinerados"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:weightSum="100"
+                        >
+
+                        <TextView
                             android:text="Gustavo petro"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -164,7 +289,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"

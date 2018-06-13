@@ -23,4 +23,6 @@ public class estaticos {
     public static String MY_PREFS_NAME = "login";
 
     public static FirebaseAnalytics fanaly;
+
+
 }

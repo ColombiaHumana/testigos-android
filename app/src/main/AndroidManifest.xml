@@ -30,7 +30,9 @@
         <activity
             android:name="petro.presidencia.votacion.vuelta2.actividades.testigos.votacionActivity"
             android:parentActivityName="petro.presidencia.votacion.vuelta2.principalActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+
+            />
 
         <activity
             android:name="petro.presidencia.votacion.vuelta2.actividades.forgorActivity"
@@ -39,7 +41,8 @@
         <activity
             android:name="petro.presidencia.votacion.vuelta2.actividades.notiActivity"
             android:parentActivityName="petro.presidencia.votacion.vuelta2.principalActivity" />
-        <activity android:name="petro.presidencia.votacion.vuelta2.principalActivity">
+
+        <activity android:name="petro.presidencia.votacion.vuelta2.principalActivity" android:screenOrientation="portrait">
         </activity>
         <activity android:name="petro.presidencia.votacion.splash" android:theme="@style/SplashTheme">
             <intent-filter>
