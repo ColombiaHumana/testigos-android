@@ -21,6 +21,7 @@
         android:id="@+id/appBarLayout">
 
         <android.support.design.widget.TabLayout
+            style="@style/MyCustomTabLayout"
             android:id="@+id/tabs"
             app:tabBackground="@drawable/tabselector"
             android:layout_width="match_parent"

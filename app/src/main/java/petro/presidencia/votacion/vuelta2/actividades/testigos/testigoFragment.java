@@ -3,6 +3,7 @@ package petro.presidencia.votacion.vuelta2.actividades.testigos;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -16,9 +17,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import petro.presidencia.votacion.utils.estaticos;
@@ -40,6 +45,7 @@ public class testigoFragment extends Fragment {
     ListView listado_mesas_asignadas;
 
     JSONObject dataUser;
+    JSONArray mesas;
 
     SharedPreferences.OnSharedPreferenceChangeListener listener;
 
@@ -54,6 +60,7 @@ public class testigoFragment extends Fragment {
 
         showProgress(true);
         cargar_data();
+        //startActivity(new Intent(getActivity(),votacionActivity.class));
         return V;
     }
 
@@ -98,7 +105,9 @@ public class testigoFragment extends Fragment {
             Fragment f = headtestigoMiniFragment.headtestiBuilder(nombre,puesto,celular_coor);
             getFragmentManager().beginTransaction().replace(R.id.head_fragment, f).commit();
 
-            //startActivity(new Intent(getActivity(),anomaliasActivity.class));
+            mesas = dataUser.getJSONArray("tables");
+            llenar_mesas_asignadas();
+            //startActivity(new Intent(getActivity(),votacionActivity.class));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -119,7 +128,7 @@ public class testigoFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.add(Menu.NONE, MENU_ITEM_LOGOUT, Menu.NONE, "Salir");
+        menu.add(Menu.NONE, MENU_ITEM_LOGOUT, Menu.NONE, "Cerrar sesión");
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -165,4 +174,85 @@ public class testigoFragment extends Fragment {
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
+
+
+    void llenar_mesas_asignadas(){
+        BaseAdapter ba=new mesaAdapter(getActivity().getBaseContext());
+        listado_mesas_asignadas.setAdapter(ba);
+        //listado_mesas_asignadas.divider
+    }
+
+    class mesaAdapter extends BaseAdapter{
+
+        Context ctt;
+
+        public mesaAdapter(Context ct){
+            this.ctt=ct;
+        }
+
+
+        @Override
+        public int getCount() {
+            return mesas.length();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            try{
+                return mesas.getJSONObject(position);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(ctt).
+                        inflate(R.layout.item_mesa, parent, false);
+            }
+
+            try{
+                TextView mesaName = (TextView)convertView.findViewById(R.id.nombre_mesa);
+                Button ranomalia = (Button)convertView.findViewById(R.id.btn_enviar_anomalia);
+                Button rresultados = (Button)convertView.findViewById(R.id.btn_enviar_resultados);
+                final int id =mesas.getJSONObject(position).getInt("id");
+                final String nombre = mesas.getJSONObject(position).getString("name");
+                mesaName.setText(nombre);
+
+                rresultados.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i =new Intent(getActivity(),votacionActivity.class);
+                        i.putExtra("id",id);
+                        i.putExtra("name",nombre);
+                        startActivity(i);
+                    }
+                });
+
+                ranomalia.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i =new Intent(getActivity(),anomaliasActivity.class);
+                        i.putExtra("id",id);
+                        i.putExtra("name",nombre);
+                        startActivity(i);
+                    }
+                });
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return convertView;
+        }
+    }
+
 }

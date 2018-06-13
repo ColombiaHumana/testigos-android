@@ -43,8 +43,8 @@ import votacion.presidencia.petro.testigoscolombiahumana.R;
 public class votacionActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int selectPhoto = 100;
-    EditText nummesa,ttotalvot;
-    EditText tpetro, tvotblanco, tivanduque, thumberto, ttrujillo, tfajardo, tvmorales, tvargas;
+    EditText ttotalvot;
+    EditText tpetro, tivanduque;
     EditText tblanco, tnulos, tnomarcados;
     TextView votos_validos, total_votos;
     View formulario;
@@ -66,6 +66,11 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
     FirebaseAnalytics mFirebaseAnalytics;
     FirebaseStorage storage;
 
+    int ID;
+    String NOMBRE_MESA;
+
+    TextView tmesanme,tpuestotexto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +85,8 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
         storageReference = storage.getReference();
         fdatabase = FirebaseDatabase.getInstance().getReference();
 
+        tmesanme = (TextView)findViewById(R.id.nummesa);
+
         textphoto = (TextView) findViewById(R.id.text_image);
         imagePhoto = (ImageView) findViewById(R.id.image);
         linear = (LinearLayout) findViewById(R.id.linear_image);
@@ -87,16 +94,10 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
         submit.setOnClickListener(this);
         linear.setOnClickListener(this);
 
-        nummesa = (EditText)findViewById(R.id.num_mesa);
         ttotalvot = (EditText) findViewById(R.id.t_totalvot);
         tpetro = (EditText) findViewById(R.id.t_petro);
-        tvotblanco = (EditText) findViewById(R.id.t_pro_blanco);
         tivanduque = (EditText) findViewById(R.id.t_ivan_duque);
-        thumberto = (EditText) findViewById(R.id.t_humberto_calles);
-        ttrujillo = (EditText) findViewById(R.id.t_jtrujillo);
-        tfajardo = (EditText) findViewById(R.id.t_s_fajardo);
-        tvmorales = (EditText) findViewById(R.id.t_v_morales);
-        tvargas = (EditText) findViewById(R.id.t_vargas_lleras);
+
 
         tblanco = (EditText) findViewById(R.id.t_votos_blanco);
         tnulos = (EditText) findViewById(R.id.t_votos_nulos);
@@ -126,17 +127,19 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
         };
 
         tpetro.addTextChangedListener(candidatos);
-        tvotblanco.addTextChangedListener(candidatos);
         tivanduque.addTextChangedListener(candidatos);
-        thumberto.addTextChangedListener(candidatos);
-        ttrujillo.addTextChangedListener(candidatos);
-        tfajardo.addTextChangedListener(candidatos);
-        tvmorales.addTextChangedListener(candidatos);
-        tvargas.addTextChangedListener(candidatos);
         tblanco.addTextChangedListener(candidatos);
         tnulos.addTextChangedListener(candidatos);
         tnomarcados.addTextChangedListener(candidatos);
 
+
+        tpuestotexto = (TextView)findViewById(R.id.puestotexto);
+
+
+        ID =getIntent().getIntExtra("id",0);
+        NOMBRE_MESA =getIntent().getStringExtra("name");
+        tmesanme.setText(NOMBRE_MESA);
+        tpuestotexto.setText(estaticos.puesto);
         //desactivar_vista();
     }
 
@@ -161,27 +164,11 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
         if (!TextUtils.isEmpty(tpetro.getText().toString())) {
             total_candidatos += Integer.parseInt(tpetro.getText().toString());
         }
-        if (!TextUtils.isEmpty(tvotblanco.getText().toString())) {
-            total_candidatos += Integer.parseInt(tvotblanco.getText().toString());
-        }
+
         if (!TextUtils.isEmpty(tivanduque.getText().toString())) {
             total_candidatos += Integer.parseInt(tivanduque.getText().toString());
         }
-        if (!TextUtils.isEmpty(thumberto.getText().toString())) {
-            total_candidatos += Integer.parseInt(thumberto.getText().toString());
-        }
-        if (!TextUtils.isEmpty(ttrujillo.getText().toString())) {
-            total_candidatos += Integer.parseInt(ttrujillo.getText().toString());
-        }
-        if (!TextUtils.isEmpty(tfajardo.getText().toString())) {
-            total_candidatos += Integer.parseInt(tfajardo.getText().toString());
-        }
-        if (!TextUtils.isEmpty(tvmorales.getText().toString())) {
-            total_candidatos += Integer.parseInt(tvmorales.getText().toString());
-        }
-        if (!TextUtils.isEmpty(tvargas.getText().toString())) {
-            total_candidatos += Integer.parseInt(tvargas.getText().toString());
-        }
+
 
         if (!TextUtils.isEmpty(tblanco.getText().toString())) {
             total_candidatos += Integer.parseInt(tblanco.getText().toString());
@@ -218,7 +205,6 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
 
 
         if (id == R.id.t_btndatos) {
-
 
 
             DD = new Dialog(this);
@@ -314,9 +300,7 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
             Toasty.info(this, "Debes subir una imagen", Toast.LENGTH_SHORT).show();
             submit.setEnabled(true);
 
-        }else if(nummesa.getText().toString().equals("")){
-            Toasty.info(this,"Debes especificar el número de mesa",Toast.LENGTH_LONG).show();
-        }else {
+        } else {
             uploadImage();
         }
     }
@@ -326,92 +310,61 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
         validar_campos();
 
         HashMap<String, Object> resultados = new HashMap<>();
-        resultados.put("mesa", Integer.parseInt(nummesa.getText().toString()));
         resultados.put("petro", Integer.parseInt(tpetro.getText().toString()));
-        resultados.put("votblanco", Integer.parseInt(tvotblanco.getText().toString()));
         resultados.put("ivanduque", Integer.parseInt(tivanduque.getText().toString()));
-        resultados.put("humberto", Integer.parseInt(thumberto.getText().toString()));
-        resultados.put("trujillo", Integer.parseInt(ttrujillo.getText().toString()));
-        resultados.put("fajardo", Integer.parseInt(tfajardo.getText().toString()));
-        resultados.put("vmorales", Integer.parseInt(tvmorales.getText().toString()));
-        resultados.put("vargas", Integer.parseInt(tvargas.getText().toString()));
         resultados.put("blanco", Integer.parseInt(tblanco.getText().toString()));
         resultados.put("nulos", Integer.parseInt(tnulos.getText().toString()));
         resultados.put("nomarcados", Integer.parseInt(tnomarcados.getText().toString()));
-        resultados.put("imagen",IMAGEN_URL);
-        resultados.put("total",total_otros);
+        resultados.put("imagen", IMAGEN_URL);
+        resultados.put("total", total_otros);
 
         //resultados.put("mesa",)
         resultados.put("municipio", estaticos.municipio);
-        resultados.put("departamento",estaticos.departamento);
-        resultados.put("puesto",estaticos.puesto);
-        resultados.put("cedula",estaticos.cedula);
+        resultados.put("departamento", estaticos.departamento);
+        resultados.put("puesto", estaticos.puesto);
+        resultados.put("cedula", estaticos.cedula);
 
 
-
-
-        fdatabase.child("/post_votos/"+UUID.randomUUID().toString()).setValue(resultados).addOnSuccessListener(new OnSuccessListener<Void>() {
+        fdatabase.child("/post_votos/" + UUID.randomUUID().toString()).setValue(resultados).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toasty.success(getApplicationContext(),"Los datos de la mesa se han subido correctamente",Toast.LENGTH_LONG).show();
+                Toasty.success(getApplicationContext(), "Los datos de la mesa se han subido correctamente", Toast.LENGTH_LONG).show();
                 finish();
                 DD.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toasty.error(getApplicationContext(),"Error, inténtalo mas tarde",Toast.LENGTH_LONG).show();
+                Toasty.error(getApplicationContext(), "Error, inténtalo mas tarde", Toast.LENGTH_LONG).show();
             }
         });
 
 
     }
 
-    void validar_campos(){
+    void validar_campos() {
 
-        if("".equals(tpetro.getText().toString())){
+        if ("".equals(tpetro.getText().toString())) {
             tpetro.setText("0");
         }
-        if("".equals(tvotblanco.getText().toString())){
-            tvotblanco.setText("0");
-        }
-        if("".equals(tivanduque.getText().toString())){
-            tivanduque.setText("0");
-        }
-        if("".equals(thumberto.getText().toString())){
-            thumberto.setText("0");
-        }
-        if("".equals(ttrujillo.getText().toString())){
-            ttrujillo.setText("0");
-        }
-        if("".equals(tfajardo.getText().toString())){
-            tfajardo.setText("0");
-        }
-        if("".equals(tvmorales.getText().toString())){
-            tvmorales.setText("0");
-        }
-        if("".equals(tvargas.getText().toString())){
-            tvargas.setText("0");
-        }
 
-        if("".equals(tblanco.getText().toString())){
+        if ("".equals(tblanco.getText().toString())) {
             tblanco.setText("0");
         }
-        if("".equals(tnulos.getText().toString())){
+        if ("".equals(tnulos.getText().toString())) {
             tnulos.setText("0");
         }
-        if("".equals(tnomarcados.getText().toString())){
+        if ("".equals(tnomarcados.getText().toString())) {
             tnomarcados.setText("0");
         }
 
-        if("".equals(votos_validos.getText().toString())){
+        if ("".equals(votos_validos.getText().toString())) {
             votos_validos.setText("0");
         }
 
-        if("".equals(total_votos.getText().toString())){
+        if ("".equals(total_votos.getText().toString())) {
             total_votos.setText("0");
         }
-
 
 
     }

@@ -7,9 +7,11 @@
     android:background="#fefefe"
     tools:context="petro.presidencia.votacion.vuelta2.actividades.guiaActivity">
     <ImageView
+        android:background="@color/morado_oscuro"
+        android:padding="30dp"
         android:id="@+id/imagenban"
         android:adjustViewBounds="true"
-        android:src="@drawable/banner_app"
+        android:src="@drawable/splash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

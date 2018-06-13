@@ -4,118 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="petro.presidencia.votacion.vuelta2.actividades.testigos.votacionActivity"
-
-
-    >
-<!--
-LINK PARA RADDIO BUTTON CUSTOM
-https://stackoverflow.com/questions/4259295/how-can-i-set-the-width-of-radio-buttons-to-change-with-regards-to-screen-size
--->
-
+    tools:context="petro.presidencia.votacion.vuelta2.actividades.testigos.votacionActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="26dp"
+            android:textStyle="bold"
+            android:textColor="@color/morado_oscuro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reportar anomalías" />
+        <TextView
+            android:gravity="center"
+            android:textColor="#4b4b4b"
+            android:layout_margin="5dp"
+            android:text="Llena el formulario a continuación:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="18dp"
+            android:textColor="@color/morado_oscuro"
+            android:id="@+id/nummesa"
+            android:gravity="center"
+            android:text="Mesa 99"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight=".33"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
 
             <RadioButton
 
                 android:id="@+id/jurados_votacion"
-                android:onClick="denuncia"
-                android:background="@drawable/linea_alrededoranomalias"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/color_principal"
                 android:layout_weight=".5"
-                android:button="@drawable/anomalias_radiobutonselector"
-                android:text="JURADOS DE VOTACION"
-                
+                android:onClick="denuncia"
+                android:text="Jurados de votación"
+                android:textStyle="bold"
+                android:textColor="@color/color_principal"
+
                 />
 
             <RadioButton
                 android:id="@+id/limitaciones_al_derecho"
-                android:onClick="denuncia"
-                android:background="@drawable/linea_alrededoranomalias"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+
                 android:layout_height="match_parent"
                 android:layout_weight=".5"
-                android:button="@drawable/anomalias_radiobutonselector"
-                android:textColor="@color/color_principal"
-                
-                android:text="LIMITACIONES AL DERECHO DE VOTO" />
+                android:onClick="denuncia"
+                android:textStyle="bold"
+                android:text="Limitaciones al derecho de voto"
 
-        </LinearLayout>
+                android:textColor="@color/color_principal" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight=".33"
-            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/censo_extracontemporaneo"
-                android:onClick="denuncia"
-                android:background="@drawable/linea_alrededoranomalias"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+                android:textStyle="bold"
                 android:layout_height="match_parent"
-                android:textColor="@color/color_principal"
                 android:layout_weight=".5"
-                android:button="@drawable/anomalias_radiobutonselector"
-                android:text="VOTACIÓN EXTEMPORÁNEA" />
+                android:onClick="denuncia"
+                android:text="Votación extemporánea"
+
+                android:textColor="@color/color_principal" />
 
             <RadioButton
                 android:id="@+id/no_destruccion"
-                android:onClick="denuncia"
-                android:background="@drawable/linea_alrededoranomalias"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+
                 android:layout_height="match_parent"
                 android:layout_weight=".5"
-                android:button="@drawable/anomalias_radiobutonselector"
-                android:textColor="@color/color_principal"
-                
-                android:text="NO DESTRUCCIÓN MATERIAL ELECTORAL" />
-        </LinearLayout>
+                android:onClick="denuncia"
+                android:textStyle="bold"
+                android:text="No destrución material electoral"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight=".33"
-            android:orientation="horizontal">
+                android:textColor="@color/color_principal" />
+
 
             <RadioButton
                 android:id="@+id/errores_en_el_conteo"
-                android:onClick="denuncia"
-                android:background="@drawable/linea_alrededoranomalias"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+
                 android:layout_height="match_parent"
-                
-                android:textColor="@color/color_principal"
-                android:button="@drawable/anomalias_radiobutonselector"
                 android:layout_weight=".5"
-                android:text="ERRORES EN EL CONTEO" />
+
+                android:onClick="denuncia"
+                android:textStyle="bold"
+                android:text="Errores en el conteo"
+                android:textColor="@color/color_principal" />
 
             <RadioButton
                 android:id="@+id/errores_e14"
-                android:onClick="denuncia"
-                android:background="@drawable/linea_alrededoranomalias"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+
                 android:layout_height="match_parent"
                 android:layout_weight=".5"
-                android:textColor="@color/color_principal"
-                android:button="@drawable/anomalias_radiobutonselector"
-                
-                android:text="ERRORES EN EL FORMATO E14" />
-        </LinearLayout>
+                android:onClick="denuncia"
+                android:textStyle="bold"
+                android:text="Errores en el formateo E14"
 
+
+                android:textColor="@color/color_principal" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

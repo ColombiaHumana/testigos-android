@@ -5,10 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <ScrollView
-        android:fillViewport="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
 
 
         <LinearLayout
@@ -31,52 +28,25 @@
                     android:layout_height="wrap_content">
 
 
-
-                    <LinearLayout
-                        android:orientation="horizontal"
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:textSize="26dp"
+                        android:textColor="@color/morado_oscuro"
+                        android:id="@+id/nummesa"
+                        android:gravity="center"
+                        android:text="Mesa 99"
+                        android:textStyle="bold"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="100"
-                        android:background="@color/gris_seleccion"
-                        >
+                        android:layout_height="wrap_content" />
 
-                        <TextView
-                            android:text="Número de mesa:"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
-                            android:layout_weight="70"
-                            />
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_weight="30"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center">
-
-
-                            <EditText
-                                android:maxLength="2"
-                                android:background="@drawable/edittext_borde"
-                                android:id="@+id/num_mesa"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-
-                                android:inputType="number"
-                                android:maxLines="1"
-                                android:singleLine="true"
-                                />
-
-                        </android.support.design.widget.TextInputLayout>
-
-                    </LinearLayout>
-
-
-
-
-
+                    <TextView
+                        android:id="@+id/puestotexto"
+                        android:textSize="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center"
+                        android:text="puesto de votaicon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
 
                     <LinearLayout
@@ -91,9 +61,10 @@
                             android:text="Total votos en la mesa:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
+                            android:gravity="center|right"
+                            android:paddingRight="20dp"
                             android:layout_weight="70"
+                            android:textSize="16dp"
                             />
 
                         <android.support.design.widget.TextInputLayout
@@ -133,8 +104,9 @@
                             android:text="Gustavo petro"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
+                            android:gravity="center|right"
+                            android:paddingRight="20dp"
+                            android:textSize="16dp"
                             android:layout_weight="70"
                             />
 
@@ -165,45 +137,6 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="100">
-
-                        <TextView
-                            android:text="Promotores voto en Blanco"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
-                            android:layout_weight="70"
-                            />
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_weight="30"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center">
-
-
-                            <EditText
-                                android:maxLength="3"
-                                android:background="@drawable/edittext_borde"
-                                android:id="@+id/t_pro_blanco"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                
-                                android:inputType="number"
-                                android:maxLines="1"
-                                android:singleLine="true"
-
-                                />
-
-                        </android.support.design.widget.TextInputLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:weightSum="100"
                         >
 
@@ -211,8 +144,9 @@
                             android:text="Ivan Duque:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
+                            android:gravity="center|right"
+                            android:paddingRight="20dp"
+                            android:textSize="16dp"
                             android:layout_weight="70"
                             />
 
@@ -240,207 +174,6 @@
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="100"
-                        >
-
-                        <TextView
-                            android:text="Humberto de la Calle"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
-                            android:layout_weight="70"
-                            />
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_weight="30"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center">
-
-
-                            <EditText
-                                android:maxLength="3"
-                                android:background="@drawable/edittext_borde"
-                                android:id="@+id/t_humberto_calles"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                
-                                android:inputType="number"
-                                android:maxLines="1"
-                                android:singleLine="true"
-
-                                />
-
-                        </android.support.design.widget.TextInputLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="100"
-                        >
-
-                        <TextView
-                            android:text="Jorge Antonio Trujillo:"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
-                            android:layout_weight="70"
-                            />
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_weight="30"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center">
-
-
-                            <EditText
-                                android:maxLength="3"
-                                android:background="@drawable/edittext_borde"
-                                android:id="@+id/t_jtrujillo"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                
-                                android:inputType="number"
-                                android:maxLines="1"
-                                android:singleLine="true"
-
-                                />
-
-                        </android.support.design.widget.TextInputLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="100"
-                        >
-
-                        <TextView
-                            android:text="Sergio Fajardo:"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
-                            android:layout_weight="70"
-                            />
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_weight="30"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center">
-
-
-                            <EditText
-                                android:maxLength="3"
-                                android:background="@drawable/edittext_borde"
-                                android:id="@+id/t_s_fajardo"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                
-                                android:inputType="number"
-                                android:maxLines="1"
-                                android:singleLine="true"
-
-                                />
-
-                        </android.support.design.widget.TextInputLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="100"
-                        >
-
-                        <TextView
-                            android:text="Viviane Morales:"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
-                            android:layout_weight="70"
-                            />
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_weight="30"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center">
-
-
-                            <EditText
-                                android:maxLength="3"
-                                android:background="@drawable/edittext_borde"
-                                android:id="@+id/t_v_morales"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                
-                                android:inputType="number"
-                                android:maxLines="1"
-                                android:singleLine="true"
-
-                                />
-
-                        </android.support.design.widget.TextInputLayout>
-                    </LinearLayout>
-
-
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:weightSum="100"
-                        >
-
-                        <TextView
-                            android:text="German Varas Lleras:"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
-                            android:layout_weight="70"
-                            />
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_weight="30"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center">
-
-
-                            <EditText
-                                android:maxLength="3"
-                                android:background="@drawable/edittext_borde"
-                                android:id="@+id/t_vargas_lleras"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                
-                                android:inputType="number"
-                                android:maxLines="1"
-                                android:singleLine="true"
-
-                                />
-
-                        </android.support.design.widget.TextInputLayout>
-                    </LinearLayout>
 
                     <LinearLayout
                         android:orientation="horizontal"
@@ -453,9 +186,10 @@
                             android:text="Votos Blanco:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
+                            android:gravity="center|right"
+                            android:paddingRight="20dp"
                             android:layout_weight="70"
+                            android:textSize="16dp"
                             />
 
                         <android.support.design.widget.TextInputLayout
@@ -484,16 +218,15 @@
 
                     <TextView
                         android:id="@+id/total_votos_validos"
-
+                        android:textStyle="bold"
                         android:textColor="@color/color_principal"
-                        android:background="@color/gris_seleccion"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:padding="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Total votos validos: "
+                        android:text="Total votos válidos: "
                         android:textSize="20dp" />
 
                     <View
@@ -515,9 +248,10 @@
                             android:text="Votos nulos:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
+                            android:gravity="center|right"
+                            android:paddingRight="20dp"
                             android:layout_weight="70"
+                            android:textSize="16dp"
                             />
 
                         <android.support.design.widget.TextInputLayout
@@ -556,9 +290,10 @@
                             android:text="Votos no marcados:"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:paddingLeft="20dp"
+                            android:gravity="center|right"
+                            android:paddingRight="20dp"
                             android:layout_weight="70"
+                            android:textSize="16dp"
 
                             />
 
@@ -589,9 +324,9 @@
                         android:id="@+id/totalv"
                         android:text="Total votos: "
                         android:gravity="center"
-                        android:textSize="20dp"
-                        android:textColor="@color/color_principal"
-                        android:background="@color/gris_seleccion"
+                        android:textSize="22dp"
+                        android:textColor="@color/verde_raro"
+                        android:textStyle="bold"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:padding="10dp"
@@ -619,8 +354,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:textSize="20sp"
-                            android:text="Subir imagen"/>
+                            android:text="Subir foto del formulario"
+                            android:textSize="20sp" />
 
 
 
@@ -630,7 +365,7 @@
                         android:visibility="visible"
                         android:layout_margin="20dp"
                         android:id="@+id/t_btndatos"
-                        android:background="@color/color_principal"
+                        android:background="@color/verde_raro"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -643,5 +378,4 @@
 
 
         </LinearLayout>
-    </ScrollView>
 </RelativeLayout>

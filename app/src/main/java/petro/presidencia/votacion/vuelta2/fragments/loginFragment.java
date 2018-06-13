@@ -246,6 +246,7 @@ public class loginFragment extends Fragment implements Response.Listener<JSONObj
         try{
             if(response.has("jwt")){
                 String token = response.getString("jwt");
+                estaticos.TOKEN = response.getString("jwt");
                 estaticos.editor.putString("token",token);
                 estaticos.editor.apply();
                 Toasty.success(CTT,"Bienvenido",Toast.LENGTH_SHORT).show();

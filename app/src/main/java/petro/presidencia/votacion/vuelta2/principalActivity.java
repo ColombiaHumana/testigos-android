@@ -161,11 +161,15 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
 
             editor.putString("user",estaticos.USER).apply();
 
-            String ccedula = String.valueOf(response.getJSONObject("user").getInt("cedula"));
+
             String departamento = response.getJSONObject("user").getJSONObject("department").getString("name");
             String municipio = response.getJSONObject("user").getJSONObject("municipality").getString("name");
             String puesto = response.getJSONObject("user").getJSONObject("post").getString("name");
             String escoordinador = response.getJSONObject("user").getBoolean("coordinator") ? "coordinador" : "testigo";
+
+            estaticos.puesto=puesto;
+            estaticos.departamento=departamento;
+            estaticos.municipio=municipio;
 
 
             HashMap<String, Object> result = new HashMap<>();

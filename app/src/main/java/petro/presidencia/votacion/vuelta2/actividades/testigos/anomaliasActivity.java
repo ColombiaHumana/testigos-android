@@ -2,16 +2,9 @@ package petro.presidencia.votacion.vuelta2.actividades.testigos;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
@@ -22,19 +15,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
-import petro.presidencia.votacion.menuActivity;
 import petro.presidencia.votacion.utils.Peticiones;
+import petro.presidencia.votacion.utils.estaticos;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
 
 public class anomaliasActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
@@ -44,14 +34,15 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
     RadioButton jurados_votacion, limitaciones_al_derecho, censo_extracontemporaneo;
     RadioButton no_destruccion, errores_en_el_conteo, errores_e14;
 
-    JSONArray MESAS;
     String  mensajes = "";
     String tipoanomalia="";
     int id_anomalia = 0;
 
 
-
+    String NOMBRE_MESA;
     int ID_MESA;
+
+    TextView tmesanme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +58,13 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
         errores_en_el_conteo = (RadioButton)findViewById(R.id.errores_en_el_conteo);
         errores_e14 = (RadioButton)findViewById(R.id.errores_e14);
 
+        tmesanme = (TextView)findViewById(R.id.nummesa);
+
+
+        ID_MESA =getIntent().getIntExtra("id",0);
+        NOMBRE_MESA =getIntent().getStringExtra("name");
+        tmesanme.setText(NOMBRE_MESA);
     }
-
-
 
 
 
@@ -160,7 +155,7 @@ public class anomaliasActivity extends AppCompatActivity implements Response.Lis
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("content-type", "application/json");
-                params.put("Authorization", menuActivity.token);
+                params.put("Authorization", estaticos.TOKEN);
                 return params;
             }
         };

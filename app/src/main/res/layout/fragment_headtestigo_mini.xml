@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+
     >
     <LinearLayout
         android:orientation="horizontal"
@@ -16,14 +17,16 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
-        android:gravity="center_vertical"
+
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:gravity="center"
         >
 
         <TextView
+
             android:id="@+id/h_nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,23 +36,25 @@
             android:textStyle="bold" />
 
         <TextView
+
             android:id="@+id/h_puesto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="puesto Votacion" />
+
+        <Button
+            android:id="@+id/boton_head_llamar_coordinador"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"
+            android:text="Llamar a coordinador"
+            android:textAllCaps="false"
+            android:background="#FFF"
+            android:textColor="@color/color_principal"
+            android:textSize="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/boton_head_llamar_coordinador"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_weight=".5"
-        android:text="Llamar a coordnador"
-        android:background="#FFF"
-        android:textColor="@color/color_principal"
-        android:textSize="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f9f5f9"
     android:orientation="vertical">
 
 
@@ -87,6 +88,47 @@
         android:layout_marginRight="20dp"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#3d0a68"
+                android:gravity="center"
+                android:text="Área segura de testigos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textSize="12dp"
+                android:text="• Sube los resultados de mesa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:gravity="center"
+                android:textSize="12dp"
+                android:text="• Denuncia anomalías"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:gravity="center"
+                android:textSize="12dp"
+                android:text="• Contacta a tu coordinador"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,6 +146,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
+                    android:textStyle="bold"
+                    android:textColor="#3d0a68"
                     android:inputType="number"
                     android:hint="Cédula" />
 
@@ -114,11 +158,13 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:text="269753512681"
                     android:drawableLeft="@drawable/icono_candado"
                     android:drawablePadding="10dp"
-
+                    android:textColor="#3d0a68"
                     android:id="@+id/input_password"
                     android:maxLines="1"
+                    android:textStyle="bold"
                     android:inputType="numberPassword"
                     android:imeOptions="actionDone"
                     android:maxLength="12"
@@ -129,18 +175,24 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
+                android:layout_marginTop="15dp"
                 android:id="@+id/login"
-                android:background="#02C49A"
+                android:background="@drawable/boton_entrar_radio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#FFF"
+                android:textStyle="bold"
+                android:textAllCaps="false"
                 android:text="Entrar" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+
 
             <TextView
                 android:id="@+id/texto_registrate"

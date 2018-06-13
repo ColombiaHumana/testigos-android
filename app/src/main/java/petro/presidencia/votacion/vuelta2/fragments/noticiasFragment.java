@@ -25,7 +25,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import petro.presidencia.votacion.menuActivity;
 import petro.presidencia.votacion.vuelta2.actividades.notiActivity;
 import petro.presidencia.votacion.utils.Peticiones;
 import votacion.presidencia.petro.testigoscolombiahumana.R;
@@ -61,7 +60,6 @@ public class noticiasFragment extends Fragment implements Response.Listener<JSON
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("content-type", "application/json");
-                params.put("Authorization", menuActivity.token);
                 return params;
             }
         };
