@@ -44,6 +44,7 @@ import java.util.Map;
 import es.dmoral.toasty.Toasty;
 import petro.presidencia.votacion.utils.Peticiones;
 import petro.presidencia.votacion.utils.estaticos;
+import petro.presidencia.votacion.vuelta2.actividades.testigos.coordinadorFragment;
 import petro.presidencia.votacion.vuelta2.actividades.testigos.testigoFragment;
 import petro.presidencia.votacion.vuelta2.fragments.loginFragment;
 import petro.presidencia.votacion.vuelta2.fragments.noticiasFragment;
@@ -61,6 +62,7 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
     denuncuasAdapter adapter;
 
     PackageInfo pInfo;
@@ -197,12 +199,12 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
             FirebaseMessaging.getInstance().subscribeToTopic(escoordinador);
 
             if(response.getJSONObject("user").getBoolean("coordinator")){
-                Toast.makeText(this,"no esta definido cuando es coordinador",Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(this,"no esta definido cuando es coordinador",Toast.LENGTH_SHORT).show();
+                ftestigos=new coordinadorFragment();
             }else{
                 ftestigos = new testigoFragment();
-                setupViewPager();
             }
+            setupViewPager();
         }catch (Exception e){
             e.printStackTrace();
             editor.clear().apply();
@@ -234,7 +236,12 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
         noticiasFragment nf = new noticiasFragment();
 
         adapter.addFragment(nf, "Información");
-        adapter.addFragment(this.ftestigos, "Testigos");
+        if(ftestigos instanceof coordinadorFragment){
+            adapter.addFragment(this.ftestigos, "Coordinación");
+        }else{
+            adapter.addFragment(this.ftestigos, "Testigos");
+        }
+
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -266,7 +273,7 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
 
         @Override
         public int getItemPosition(Object object) {
-            if (object instanceof loginFragment && ftestigos instanceof testigoFragment)
+            if (object instanceof loginFragment && ftestigos instanceof testigoFragment || object instanceof loginFragment && ftestigos instanceof coordinadorFragment)
                 return POSITION_NONE;
             return POSITION_UNCHANGED;
         }

@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vuelta2.actividades.testigos.coordinadorFragment">
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <RelativeLayout
+            android:background="@color/blanco"
+            android:id="@+id/head_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+            <android.support.design.widget.TabLayout
+                style="@style/MyCustomTabLayout"
+                android:id="@+id/tabs2"
+                app:tabBackground="@drawable/tab_selector_coordinador"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="@color/verde_raro"
+                app:tabSelectedTextColor="@color/color_principal"
+                app:tabTextColor="@color/color_principal"
+                app:tabMode="fixed"
+
+                app:tabGravity="fill"/>
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/appBarLayout"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
