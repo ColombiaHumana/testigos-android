@@ -6,7 +6,12 @@
     android:layout_height="match_parent"
     >
 
-
+    <ScrollView
+        android:paddingTop="20dp"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
             android:paddingRight="20dp"
@@ -15,13 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ScrollView
-                android:id="@+id/scrollView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+
 
                 <LinearLayout
+
                     android:id="@+id/layout_formulario"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -29,7 +31,7 @@
 
 
                     <TextView
-                        android:layout_margin="10dp"
+                        android:typeface="serif"
                         android:textSize="26dp"
                         android:textColor="@color/morado_oscuro"
                         android:id="@+id/nummesa"
@@ -40,6 +42,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:layout_marginTop="-5dp"
                         android:id="@+id/puestotexto"
                         android:textSize="20dp"
                         android:layout_marginBottom="20dp"
@@ -58,11 +61,12 @@
                         >
 
                         <TextView
-                            android:text="Total votos en la mesa:"
+                            android:text="Total votos en la mesa"
+                            android:textStyle="bold"
+                            android:paddingRight="40dp"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:paddingRight="20dp"
                             android:layout_weight="70"
                             android:textSize="16dp"
                             />
@@ -81,7 +85,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                
+
+                                android:textStyle="bold"
+                                android:textColor="#4a4a4a"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
@@ -105,7 +111,8 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:paddingRight="20dp"
+                            android:textStyle="bold"
+                            android:paddingRight="40dp"
                             android:textSize="16dp"
                             android:layout_weight="70"
                             />
@@ -118,13 +125,14 @@
 
 
                             <EditText
+                                android:textStyle="bold"
                                 android:maxLength="3"
                                 android:background="@drawable/edittext_borde"
                                 android:id="@+id/t_e11"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-
+                                android:textColor="#4a4a4a"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
@@ -147,9 +155,11 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:paddingRight="20dp"
+                            android:paddingRight="40dp"
+                            android:textStyle="bold"
                             android:textSize="16dp"
                             android:layout_weight="70"
+
                             />
 
                         <android.support.design.widget.TextInputLayout
@@ -160,13 +170,14 @@
 
 
                             <EditText
+                                android:textStyle="bold"
                                 android:maxLength="3"
                                 android:background="@drawable/edittext_borde"
                                 android:id="@+id/t_vurna"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-
+                                android:textColor="#4a4a4a"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
@@ -190,9 +201,11 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:paddingRight="20dp"
+                            android:paddingRight="40dp"
+                            android:textStyle="bold"
                             android:textSize="16dp"
                             android:layout_weight="70"
+
                             />
 
                         <android.support.design.widget.TextInputLayout
@@ -203,13 +216,14 @@
 
 
                             <EditText
+                                android:textStyle="bold"
                                 android:maxLength="3"
                                 android:background="@drawable/edittext_borde"
                                 android:id="@+id/t_vincinerados"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-
+                                android:textColor="#4a4a4a"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
@@ -230,7 +244,8 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:paddingRight="20dp"
+                            android:paddingRight="40dp"
+                            android:textStyle="bold"
                             android:textSize="16dp"
                             android:layout_weight="70"
                             />
@@ -249,7 +264,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                
+                                android:textStyle="bold"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
@@ -266,11 +281,12 @@
                         >
 
                         <TextView
-                            android:text="Ivan Duque:"
+                            android:text="Iván Duque"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:paddingRight="20dp"
+                            android:paddingRight="40dp"
+                            android:textStyle="bold"
                             android:textSize="16dp"
                             android:layout_weight="70"
                             />
@@ -283,6 +299,7 @@
 
 
                             <EditText
+                                android:textStyle="bold"
                                 android:maxLength="3"
                                 android:background="@drawable/edittext_borde"
                                 android:id="@+id/t_ivan_duque"
@@ -292,7 +309,7 @@
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-
+                                android:textColor="#4a4a4a"
                                 />
 
                         </android.support.design.widget.TextInputLayout>
@@ -307,11 +324,12 @@
                         >
 
                         <TextView
-                            android:text="Votos Blanco:"
+                            android:text="Votos Blanco"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:paddingRight="20dp"
+                            android:paddingRight="40dp"
+                            android:textStyle="bold"
                             android:layout_weight="70"
                             android:textSize="16dp"
                             />
@@ -324,13 +342,14 @@
 
 
                             <EditText
+                                android:textStyle="bold"
                                 android:maxLength="3"
                                 android:background="@drawable/edittext_borde"
                                 android:id="@+id/t_votos_blanco"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-
+                                android:textColor="#4a4a4a"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
@@ -369,11 +388,12 @@
                         >
 
                         <TextView
-                            android:text="Votos nulos:"
+                            android:text="Votos nulos"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:paddingRight="20dp"
+                            android:paddingRight="40dp"
+                            android:textStyle="bold"
                             android:layout_weight="70"
                             android:textSize="16dp"
                             />
@@ -386,13 +406,14 @@
 
 
                             <EditText
+                                android:textStyle="bold"
                                 android:maxLength="3"
                                 android:background="@drawable/edittext_borde"
                                 android:id="@+id/t_votos_nulos"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                
+                                android:textColor="#4a4a4a"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
@@ -410,12 +431,13 @@
                         >
 
                         <TextView
-
-                            android:text="Votos no marcados:"
+                            android:paddingRight="40dp"
+                            android:textStyle="bold"
+                            android:text="Votos no marcados"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:paddingRight="20dp"
+
                             android:layout_weight="70"
                             android:textSize="16dp"
 
@@ -434,9 +456,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                
+                                android:textColor="#4a4a4a"
                                 android:inputType="number"
                                 android:maxLines="1"
+                                android:textStyle="bold"
                                 android:singleLine="true"
                                 android:background="@drawable/edittext_borde"
                                 />
@@ -497,9 +520,10 @@
 
                 </LinearLayout>
 
-            </ScrollView>
+
 
 
 
         </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

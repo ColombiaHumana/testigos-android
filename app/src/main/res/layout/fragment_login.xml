@@ -41,12 +41,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:padding="40dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="40dp"
+                android:paddingRight="40dp"
+                android:paddingLeft="40dp"
                 android:src="@drawable/login" />
 
 
             <LinearLayout
                 android:gravity="center"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
@@ -141,11 +145,12 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:text="112233445566"
-                    android:drawableLeft="@drawable/icono_login_user"
+                    android:text=""
+                    android:drawableLeft="@drawable/useri"
                     android:id="@+id/input_cedula"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawablePadding="12dp"
                     android:maxLines="1"
                     android:textStyle="bold"
                     android:textColor="#3d0a68"
@@ -159,9 +164,9 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:text="6162656463"
-                    android:drawableLeft="@drawable/icono_candado"
-                    android:drawablePadding="10dp"
+                    android:text=""
+                    android:drawableLeft="@drawable/candadi"
+                    android:drawablePadding="12dp"
                     android:textColor="#3d0a68"
                     android:id="@+id/input_password"
                     android:maxLines="1"
@@ -212,8 +217,10 @@
         </LinearLayout>
 
         <Button
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:id="@+id/boton_guia"
+            android:background="#f1f1f1"
+            android:textAllCaps="false"
             android:text="Guía paso a paso para testigos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

@@ -192,7 +192,7 @@ public class votacionActivity extends AppCompatActivity implements View.OnClickL
             total_candidatos += Integer.parseInt(tblanco.getText().toString());
         }
 
-        votos_validos.setText("Total votos validos: " + total_candidatos);
+        votos_validos.setText("Total votos válidos: " + total_candidatos);
 
 
         total_otros = total_candidatos;

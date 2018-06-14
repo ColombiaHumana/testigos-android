@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -121,7 +122,7 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
         }
 
 
-        if(estaticos.prefs.contains("token")){
+        if(estaticos.prefs.contains("token") && estaticos.prefs.contains("response")){
 
             estaticos.TOKEN = estaticos.prefs.getString("token","");
             try{
@@ -245,6 +246,8 @@ public class principalActivity extends AppCompatActivity implements Response.Lis
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+
     }
 
     public void setLOGUEADO(){

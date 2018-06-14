@@ -10,10 +10,10 @@
 
     <ImageView
         android:id="@+id/logo_petro"
-        android:src="@drawable/logo"
-        android:background="@color/color_principal"
+        android:src="@drawable/login"
+        android:background="@color/morado_claro"
         android:padding="30dp"
-
+        android:adjustViewBounds="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -49,7 +49,7 @@
             android:layout_marginTop="14dp"
             android:id="@+id/submit"
             android:text="Enviar"
-            android:background="@color/color_principal"
+            android:background="@color/morado_claro"
             android:textColor="#FFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

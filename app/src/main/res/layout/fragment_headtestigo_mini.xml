@@ -26,12 +26,12 @@
         >
 
         <TextView
-            android:paddingTop="15dp"
+            android:paddingTop="14dp"
             android:id="@+id/h_nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/color_principal"
-            android:textSize="16dp"
+            android:textSize="20dp"
             android:text="NOMBRE PERSONA"
             android:textStyle="bold" />
 

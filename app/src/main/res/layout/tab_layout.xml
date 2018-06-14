@@ -26,8 +26,8 @@
             app:tabBackground="@drawable/tabselector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabSelectedTextColor="@color/color_principal"
-            app:tabTextColor="@color/color_principal"
+            app:tabSelectedTextColor="#FFF"
+            app:tabTextColor="#9146ba"
             app:tabMode="fixed"
 
             app:tabGravity="fill"/>

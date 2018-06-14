@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 
 import org.json.JSONArray;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import petro.presidencia.votacion.utils.WrapContentHeightViewPager;
 import petro.presidencia.votacion.utils.estaticos;
 import petro.presidencia.votacion.vuelta2.fragments.loginFragment;
 import petro.presidencia.votacion.vuelta2.fragments.minifragmentos.headtestigoMiniFragment;
@@ -42,16 +44,18 @@ public class coordinadorFragment extends Fragment {
 
     JSONObject dataUser;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private WrapContentHeightViewPager viewPager;
     coordinadorFragmentAdapter adaptador;
 
+    ScrollView scroll;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_coordinador, container, false);
-        viewPager = (ViewPager) v.findViewById(R.id.viewpager2);
+        viewPager = (WrapContentHeightViewPager) v.findViewById(R.id.viewpager2);
         tabLayout = (TabLayout) v.findViewById(R.id.tabs2);
+        scroll = (ScrollView)v.findViewById(R.id.scroll);
         return v;
     }
 
@@ -77,6 +81,8 @@ public class coordinadorFragment extends Fragment {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+
 
     }
 
@@ -114,7 +120,7 @@ public class coordinadorFragment extends Fragment {
 
             adaptador = new coordinadorFragmentAdapter(getChildFragmentManager());
             adaptador.addFragment(listadotestigosFragment.listadotestigoBuilder(testigos.toString()), "Testigos");
-            adaptador.addFragment(new noticiasFragment(), "Mesa");
+            adaptador.addFragment(new mesasFragment(), "Mesas");
 
             viewPager.setAdapter(adaptador);
 
@@ -123,6 +129,19 @@ public class coordinadorFragment extends Fragment {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                scroll.scrollTo(0,0);
+            }
+
+            public void onPageSelected(int position) {
+                // Check if this is the page you want.
+            }
+        });
 
     }
 

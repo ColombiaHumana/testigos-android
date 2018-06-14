@@ -21,6 +21,7 @@
     </style>
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
 
         <item name="tabIndicatorColor">@color/verde_raro</item>
 
@@ -29,5 +30,9 @@
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabBackground">@color/morado_claro</item>
         <item name="tabSelectedTextColor">#FFF</item>
+    </style>
+
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">true</item>
     </style>
 </resources>

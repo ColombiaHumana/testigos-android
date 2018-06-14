@@ -38,7 +38,7 @@
 
 
             <LinearLayout
-
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,6 +68,8 @@
                     />
 
                 <petro.presidencia.votacion.utils.NonScrollListView
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:id="@+id/mesas_disponibles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

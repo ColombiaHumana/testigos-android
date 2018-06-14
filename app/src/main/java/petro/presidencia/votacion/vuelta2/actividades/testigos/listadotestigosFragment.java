@@ -58,6 +58,8 @@ public class listadotestigosFragment extends Fragment {
             e.printStackTrace();
         }
 
+
+
         return v;
     }
 
@@ -82,7 +84,7 @@ public class listadotestigosFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return testigos.length()+20;
+            return testigos.length();
         }
 
         @Override
@@ -96,17 +98,19 @@ public class listadotestigosFragment extends Fragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 convertView = LayoutInflater.from(ctt).
                         inflate(R.layout.item_testigo, parent, false);
             }
-            position=0;
-            TextView nombre,mesa;
+            //position=0;
+            TextView nombre,mesa,cedula;
             Button llamar;
             nombre = (TextView)convertView.findViewById(R.id.testi_nombre);
             mesa = (TextView)convertView.findViewById(R.id.testi_nombre_mesa);
+            cedula = (TextView)convertView.findViewById(R.id.testi_cedula);
             llamar = (Button)convertView.findViewById(R.id.testi_btn_call);
+
             try {
                 JSONArray mesas = testigos.getJSONObject(position).getJSONArray("tables");
                 String smesas="";
@@ -114,10 +118,10 @@ public class listadotestigosFragment extends Fragment {
                         smesas+=mesas.getJSONObject(position).getString("name")+",";
                 }
                 smesas=smesas.substring(0,smesas.length()-1);
-
+                cedula.setText(testigos.getJSONObject(position).getString("document"));
                 nombre.setText(testigos.getJSONObject(position).getString("name"));
                 mesa.setText(smesas);
-/*
+
                 llamar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -133,7 +137,7 @@ public class listadotestigosFragment extends Fragment {
                         }
 
                     }
-                });*/
+                });
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -11,12 +11,14 @@
 
 
     <LinearLayout
-
+        android:divider="@drawable/linea_vertical"
         android:padding="7dp"
         android:background="@drawable/linea_borde_gris_fondo_blanco"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+
         <TextView
             android:layout_weight=".3"
             android:id="@+id/testi_nombre_mesa"
@@ -36,14 +38,23 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <LinearLayout
 
+            <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:paddingTop="4dp"
+                    android:paddingLeft="4dp"
+                    android:paddingBottom="4dp"
+                    android:src="@drawable/cara_gris"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+
                 <LinearLayout
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="0dp"
                     android:orientation="vertical"
                     android:layout_weight=".85"
                     android:layout_width="0dp"
@@ -51,20 +62,21 @@
 
                     <TextView
                         android:id="@+id/testi_nombre"
-                        android:textSize="17dp"
+                        android:textSize="20dp"
                         android:textColor="@color/morado_oscuro"
                         android:textStyle="bold"
                         android:text="Nombre testigo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
                     <TextView
-                        android:visibility="gone"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:text="Ayúdanos a reportar esta mesa"
+                        android:id="@+id/testi_cedula"
+                        android:textSize="13dp"
+                        android:textColor="#808080"
+                        android:textStyle="bold"
+                        android:text="cedula testigo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
+
 
 
                 </LinearLayout>
@@ -81,6 +93,7 @@
                 >
 
                 <Button
+                    android:layout_marginTop="5dp"
                     android:id="@+id/testi_btn_call"
                     android:layout_weight=".4"
                     android:text="Llamar"

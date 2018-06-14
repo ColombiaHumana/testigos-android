@@ -7,6 +7,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -27,14 +31,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabIndicatorColor="@color/verde_raro"
-                app:tabSelectedTextColor="@color/color_principal"
-                app:tabTextColor="@color/color_principal"
+                app:tabSelectedTextColor="@color/verde_raro"
+                app:tabTextColor="@color/verde_raro"
                 app:tabMode="fixed"
 
                 app:tabGravity="fill"/>
 
 
-        <android.support.v4.view.ViewPager
+        <petro.presidencia.votacion.utils.WrapContentHeightViewPager
             android:id="@+id/viewpager2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -44,5 +48,5 @@
             />
 
     </LinearLayout>
-
+    </ScrollView>
 </RelativeLayout>
